@@ -5,11 +5,12 @@ exports.get = (req, res, next) => {
 };
 
 exports.getById = (req, res, next) => {
-    res.status(200).send('Requisição recebida com sucesso!');
+    let id = req.params.id;
+    res.status(200).send(`Requisição recebida com sucesso! user_id: ${id}`);
 };
 
 exports.post = (req, res, next) => {
-    res.status(201).send('Requisição recebida com sucesso!');
+    res.status(201).send('Requisição recebida com sucesso!' + JSON.stringify(req.body));
 };
 
 exports.put = (req, res, next) => {

@@ -9,6 +9,11 @@ const path            = require('path');
 const browser         = require('detect-browser');
 const md5             = require('md5');
 const requestIp       = require('request-ip');
+const GlobalUtils     = require('./src/Utils/Global');
+
+// const getHTMLFile = (name) => {
+//     return  `${__dirname}/src/Views/${name}.html`;
+// }
 
 app = express();
 
@@ -39,15 +44,10 @@ app.use(
 app.get('/', (req, res) => {
 
     res.set('Content-Type', 'text/html');
-    res.send("Página principal");
+
+    res.sendFile(GlobalUtils.getHTMLFile('TelaInicial'));
   
 });
-
-// app.get('/teste', (req, res) => {
-
-//     console.log("teste...");
-  
-// });
 
 
 app.listen(process.env.PORT || port);

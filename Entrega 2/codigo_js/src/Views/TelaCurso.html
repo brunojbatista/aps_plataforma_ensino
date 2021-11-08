@@ -4,64 +4,35 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <title>Tela Curso</title>
 </head>
 <body>
     <div class="login">
         <div class="form">
-            <span class="material-icons">Dashboard</span>
+          <form class="login-form">
+            <span class="material-icons">Modern JavaScript From The Beginning</span>
             <div class="bar-blue">
-                <button class="tabs-style" onclick="openTab('Todos')">Todos os Cursos</button>
-                <button class="tabs-style" onclick="openTab('Meus')">Meus Cursos</button>
+                <button class="tabs-style" onclick="openTab('Aula1')">Aula 1</button>
+                <button class="tabs-style" onclick="openTab('Aula2')">Aula 2</button>
+                <button class="tabs-style" onclick="openTab('Aula3')">Aula 3</button>
             </div>
-            <div id="Todos" class="w3-container tab" style="display: none;">
-                <h2>Todos os Cursos</h2>
-                <table style="width: 500px;">
-                    <tr>
-                        <th>Curso</th>
-                        <th>Professor</th>
-                        <th>Preço</th>
-                        <th>Ver Mais</th>
-                    </tr>
-                    <tr>
-                        <td>Modern JavaScript From The Beginning</td>
-                        <td>Bruno Jorge Nogueira Batista</td>
-                        <td>R$199.99</td>
-                        <td><a href="">Explorar Mais</a></td>
-                    </tr>
-                    <tr>
-                        <td>Curso Web Moderno Completo com JavaScript 2021 + Projetos</td>
-                        <td>Leonardo Moura Leitao</td>
-                        <td>R$249.99</td>
-                        <td><a href="">Explorar Mais</a></td>
-                    </tr>
-                    <tr>
-                        <td>Java 2021 COMPLETO: Do Zero ao Profissional + Projetos!</td>
-                        <td>Victor Maia</td>
-                        <td>R$349.99</td>
-                        <td><a href="">Explorar Mais</a></td>
-                    </tr>
-                </table>
+            <div id="Aula1" class="w3-container tab" style="display: none;">
+                <h2>Aula 1</h2>
+                <iframe src="https://www.youtube.com/embed/Ptbk2af68e8" frameborder="0" height="300" width="500"></iframe>
             </div>
-            <div id="Meus" class="w3-container tab" style="display: none;">
-                <h2>Meus Cursos</h2>
-                <table style="width: 500px;">
-                    <tr>
-                        <th>Curso</th>
-                        <th>Professor</th>
-                        <th>Ver Mais</th>
-                    </tr>
-                    <tr>
-                        <td>Modern JavaScript From The Beginning</td>
-                        <td>Bruno Jorge Nogueira Batista</td>
-                        <td><a href="">Acessar Aulas</a></td>
-                    </tr>
-                </table>
+            <div id="Aula2" class="w3-container tab" style="display: none;">
+                <h2>Aula 2</h2>
+                <iframe src="https://www.youtube.com/embed/rUTKomc2gG8" frameborder="0" height="300" width="500"></iframe>
             </div>
-            <button>Sair</button>
+            <div id="Aula3" class="w3-container tab" style="display: none;">
+                <h2>Aula 3</h2>
+                <iframe src="https://www.youtube.com/embed/FdePtO5JSd0" frameborder="0" height="300" width="500"></iframe>
+            </div>
+            <button>Voltar a Dashboard</button>
+          </form>  
         </div>
       </div>
-    <script>
+      <script>
         function openTab(tab) {
           var i;
           var x = document.getElementsByClassName("tab");

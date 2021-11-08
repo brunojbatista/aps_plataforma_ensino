@@ -68,5 +68,13 @@ app.get('/', async (req, res) => {
   
 });
 
+app.get('/TelaCurso', (req, res) => {
+
+    res.set('Content-Type', 'text/html');
+
+    res.sendFile(GlobalUtils.getHTMLFile('TelaCurso'));
+  
+});
+
 
 app.listen(process.env.PORT || port);

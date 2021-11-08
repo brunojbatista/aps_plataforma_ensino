@@ -22,20 +22,20 @@ class ControladorUsuario {
         return new Promise(
             async (resolve, reject) => {
 
-                var usuarioCollection   = new CadastroUsuario();
+                // var usuarioCollection   = new CadastroUsuario();
         
                 // console.log("cadastrando...");
 
-                var usuarioBD = this.fabricaBDR.criarRepositorioUsuario();
+                var usuarioBDR = this.fabricaBDR.criarRepositorioUsuario();
 
                 var status = await Promise.all([
-                    usuarioBD.hasUsuarioByCPF(cpf), 
-                    usuarioBD.hasUsuarioByLogin(login)
+                    usuarioBDR.hasUsuarioByCPF(cpf), 
+                    usuarioBDR.hasUsuarioByLogin(login)
                 ]);
 
                 if (status[0] || status[1]) return reject("CPF e/ou Login existente(s)");
 
-                var usuario = await usuarioBD.inserirUsuario(
+                var usuario = await usuarioBDR.inserirUsuario(
                     cpf,
                     nome,
                     login,

@@ -1,4 +1,4 @@
-const port = 8080;
+const port = 3030;
 
 const express         = require('express');
 const bodyParser      = require('body-parser');
@@ -41,13 +41,56 @@ app.use(
     cookieParser()
 );
 
-app.get('/', (req, res) => {
+app.get('/TelaLogin', (req, res) => {
+
+    res.set('Content-Type', 'text/html');
+
+    res.sendFile(GlobalUtils.getHTMLFile('TelaLogin'));
+  
+});
+
+app.get('/CadastroAluno', (req, res) => {
+
+    res.set('Content-Type', 'text/html');
+
+    res.sendFile(GlobalUtils.getHTMLFile('CadastroAluno'));
+  
+});
+
+app.get('/TelaApresentacao', (req, res) => {
+
+    res.set('Content-Type', 'text/html');
+
+    res.sendFile(GlobalUtils.getHTMLFile('TelaApresentacao'));
+  
+});
+
+app.get('/CadastroCurso', (req, res) => {
+
+    res.set('Content-Type', 'text/html');
+
+    res.sendFile(GlobalUtils.getHTMLFile('CadastroCurso'));
+  
+});
+
+app.get('/TelaInicial', (req, res) => {
 
     res.set('Content-Type', 'text/html');
 
     res.sendFile(GlobalUtils.getHTMLFile('TelaInicial'));
   
 });
+
+app.get('/TelaCurso', (req, res) => {
+
+    res.set('Content-Type', 'text/html');
+
+    res.sendFile(GlobalUtils.getHTMLFile('TelaCurso'));
+  
+});
+
+
+
 
 
 app.listen(process.env.PORT || port);

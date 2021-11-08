@@ -1,4 +1,5 @@
-const port = 3030;
+require('dotenv').config()
+const port = process.env.HTTP_PORT || 3000;
 
 const express         = require('express');
 const bodyParser      = require('body-parser');
@@ -10,6 +11,10 @@ const browser         = require('detect-browser');
 const md5             = require('md5');
 const requestIp       = require('request-ip');
 const GlobalUtils     = require('./src/Utils/Global');
+
+const { Sequelize } = require('sequelize');
+
+
 
 // const getHTMLFile = (name) => {
 //     return  `${__dirname}/src/Views/${name}.html`;
@@ -41,39 +46,21 @@ app.use(
     cookieParser()
 );
 
-app.get('/TelaLogin', (req, res) => {
+app.get('/', async (req, res) => {
 
-    res.set('Content-Type', 'text/html');
+    const sequelize = new Sequelize('plataforma', 'root', 'root', {
+        host: 'localhost',
+        dialect: 'mysql'
+    });
 
-    res.sendFile(GlobalUtils.getHTMLFile('TelaLogin'));
-  
-});
+    // console.log(sequelize);
 
-app.get('/CadastroAluno', (req, res) => {
-
-    res.set('Content-Type', 'text/html');
-
-    res.sendFile(GlobalUtils.getHTMLFile('CadastroAluno'));
-  
-});
-
-app.get('/TelaApresentacao', (req, res) => {
-
-    res.set('Content-Type', 'text/html');
-
-    res.sendFile(GlobalUtils.getHTMLFile('TelaApresentacao'));
-  
-});
-
-app.get('/CadastroCurso', (req, res) => {
-
-    res.set('Content-Type', 'text/html');
-
-    res.sendFile(GlobalUtils.getHTMLFile('CadastroCurso'));
-  
-});
-
-app.get('/TelaInicial', (req, res) => {
+    try {
+        await sequelize.authenticate();
+        console.log('Connection has been established successfully.');
+      } catch (error) {
+        console.error('Unable to connect to the database:', error);
+      }
 
     res.set('Content-Type', 'text/html');
 
@@ -88,9 +75,6 @@ app.get('/TelaCurso', (req, res) => {
     res.sendFile(GlobalUtils.getHTMLFile('TelaCurso'));
   
 });
-
-
-
 
 
 app.listen(process.env.PORT || port);

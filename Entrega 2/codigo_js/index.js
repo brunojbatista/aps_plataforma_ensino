@@ -45,27 +45,41 @@ app.use(
     cookieParser()
 );
 
+const Sessao     = require('./src/Models/Sessao');
+const request   = require('request');
+
+
 app.get('/', async (req, res) => {
 
-    const sequelize = new Sequelize('plataforma', 'root', 'root', {
-        host: 'localhost',
-        dialect: 'mysql'
-    });
+    let sessao = new Sessao(req, res);
+
+    // console.log(sessao);
+
+    console.log(sessao.isLogged());
+
+    // console.log(sessao.setLogged());
+
+    // const sequelize = new Sequelize('plataforma', 'root', 'root', {
+    //     host: 'localhost',
+    //     dialect: 'mysql'
+    // });
 
     // console.log(sequelize);
 
-    try {
-        await sequelize.authenticate();
-        console.log('Connection has been established successfully.');
-      } catch (error) {
-        console.error('Unable to connect to the database:', error);
-      }
+    // try {
+    //     await sequelize.authenticate();
+    //     console.log('Connection has been established successfully.');
+    //   } catch (error) {
+    //     console.error('Unable to connect to the database:', error);
+    //   }
 
     res.set('Content-Type', 'text/html');
 
     res.sendFile(GlobalUtils.getHTMLFile('TelaInicial'));
   
 });
+
+// app.post('/cadastro', (req,));
 
 
 app.listen(process.env.PORT || port);

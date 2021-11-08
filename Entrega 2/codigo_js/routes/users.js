@@ -10,4 +10,7 @@ router.get('/', function(req, res, next) {
 /* GET users detail. */
 router.get('/:id', usersController.getById);
 
+router.post('/cadastro', usersController.cadastrarUsuario);
+
+
 module.exports = router;

@@ -45,36 +45,36 @@ router.get('/TelaApresentacao', function(req, res, next) {
   res.sendFile(GlobalUtils.getHTMLFile('TelaApresentacao'));
 });
 
-const Sessao     = require('../src/Models/Sessao');
+// const Sessao     = require('../src/Models/Sessao');
 
-router.get('/teste', async (req, res) => {
+// router.get('/teste', async (req, res) => {
 
-  let sessao = new Sessao(req, res);
+//   let sessao = new Sessao(req, res);
 
-  // console.log(sessao);
+//   // console.log(sessao);
 
-  console.log(sessao.isLogged());
+//   console.log(sessao.isLogged());
 
-  // console.log(sessao.setLogged());
+//   // console.log(sessao.setLogged());
 
-  // const sequelize = new Sequelize('plataforma', 'root', 'root', {
-  //     host: 'localhost',
-  //     dialect: 'mysql'
-  // });
+//   // const sequelize = new Sequelize('plataforma', 'root', 'root', {
+//   //     host: 'localhost',
+//   //     dialect: 'mysql'
+//   // });
 
-  // console.log(sequelize);
+//   // console.log(sequelize);
 
-  // try {
-  //     await sequelize.authenticate();
-  //     console.log('Connection has been established successfully.');
-  //   } catch (error) {
-  //     console.error('Unable to connect to the database:', error);
-  //   }
+//   // try {
+//   //     await sequelize.authenticate();
+//   //     console.log('Connection has been established successfully.');
+//   //   } catch (error) {
+//   //     console.error('Unable to connect to the database:', error);
+//   //   }
 
-  res.set('Content-Type', 'text/html');
+//   res.set('Content-Type', 'text/html');
 
-  res.sendFile(GlobalUtils.getHTMLFile('TelaInicial'));
+//   res.sendFile(GlobalUtils.getHTMLFile('TelaInicial'));
 
-});
+// });
 
 module.exports = router;

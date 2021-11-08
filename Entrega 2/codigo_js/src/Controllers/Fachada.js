@@ -1,13 +1,25 @@
+const ControladorUsuario = require('../Models/ControladorUsuario');
 class Fachada {
 
-    static cadastrarUsuario(
+    static cadastrarUsuario({
         cpf,
         nome,
         login,
         senha,
         email,
         telefone
-    ) {
+    }) {
+
+        var controladorUsuario = new ControladorUsuario();
+
+        return controladorUsuario.cadastrarUsuario(
+            cpf,
+            nome,
+            login,
+            senha,
+            email,
+            telefone
+        );
 
     }
 

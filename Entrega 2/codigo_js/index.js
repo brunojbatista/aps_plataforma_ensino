@@ -1,4 +1,5 @@
-const port = 8080;
+require('dotenv').config()
+const port = process.env.HTTP_PORT || 3000;
 
 const express         = require('express');
 const bodyParser      = require('body-parser');
@@ -79,7 +80,13 @@ app.get('/', async (req, res) => {
   
 });
 
-// app.post('/cadastro', (req,));
+app.get('/TelaCurso', (req, res) => {
+
+    res.set('Content-Type', 'text/html');
+
+    res.sendFile(GlobalUtils.getHTMLFile('TelaCurso'));
+  
+});
 
 
 app.listen(process.env.PORT || port);

@@ -6,8 +6,40 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+const requestIp = require("request-ip");
+
+const bodyParser      = require('body-parser');
+const formidable      = require('formidable');
+const fs              = require('fs-extra');
+const browser         = require('detect-browser');
+const md5             = require('md5');
+const GlobalUtils     = require('./src/Utils/Global');
 
 var app = express();
+
+app.use(
+    express.static(__dirname + '/public')
+);
+
+app.use(
+    requestIp.mw({
+      attributeName : 'ip'
+    })
+);
+
+app.use(
+    bodyParser.urlencoded({
+      extended: false
+    })
+);
+
+app.use(
+    bodyParser.json()
+);
+
+app.use(
+    cookieParser()
+);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -17,7 +49,7 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, '/public/')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);

@@ -25,6 +25,17 @@ class ControladorSessao {
 
     }
 
+    checarSessao(request) {
+
+        if (!request.hasOwnProperty('cookies')) return false;
+      
+        if (request.cookies.logged == undefined) return false
+      
+        return request.cookies.hasOwnProperty('logged');
+      
+    }
+      
+
 }
 
 module.exports = ControladorSessao;

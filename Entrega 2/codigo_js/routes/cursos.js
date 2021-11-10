@@ -12,4 +12,6 @@ router.get('/', function(req, res, next) {
 
 router.post('/criarCurso', coursersController.cadastrarCurso);
 
+router.get('/listarCursos', coursersController.listarCursos);
+
 module.exports = router;

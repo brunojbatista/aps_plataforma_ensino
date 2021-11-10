@@ -1,6 +1,7 @@
 const ControladorUsuario    = require('../Models/ControladorUsuario');
 const ControladorSessao     = require('../Models/ControladorSessao');
 const ControladorCurso      = require('../Models/ControladorCurso');
+const ControladorCartao     = require('../Models/ControladorCartao');
 class Fachada {
 
     static cadastrarUsuario({
@@ -153,6 +154,44 @@ class Fachada {
                 // } catch (e) {
                 //     reject(e);
                 // }
+
+            }
+        );
+
+    }
+
+    static async cadastrarCartao({
+        numero,
+        bandeira,
+        req
+    }) {
+
+        return new Promise(
+            async (resolve, reject) => {
+
+                try {
+
+                    var controladorSessao = new ControladorSessao();
+
+                    var controladorCartao = new ControladorCartao();
+
+                    controladorSessao.checarSessao(req);
+
+                    const usuario = await controladorSessao.getSessaoUsuario(req);
+
+                    console.log("criar curso usuario", usuario);
+                    
+                    const curso = await controladorCartao.cadastrarCartao(
+                        numero,
+                        bandeira,
+                        usuario.id
+                    );
+
+                    resolve(true);
+
+                } catch (e) {
+                    reject(e);
+                }
 
             }
         );

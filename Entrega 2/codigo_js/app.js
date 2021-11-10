@@ -15,6 +15,13 @@ const browser         = require('detect-browser');
 const md5             = require('md5');
 const GlobalUtils     = require('./src/Utils/Global');
 
+const database      = require('./database/db');
+
+(async () => {
+  // await database.sync();
+  await database.sync({force: true});
+})();
+
 var app = express();
 
 app.use(

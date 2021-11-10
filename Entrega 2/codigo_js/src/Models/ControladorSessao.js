@@ -15,9 +15,11 @@ class ControladorSessao {
 
     registrarSessao(response) {
 
+        var second = 3600;
+
         let code = md5(Date.now());
         // console.log('code', code)
-        response.cookie('logged', code, {maxAge: 300000});
+        response.cookie('logged', code, {maxAge: second*1000});
 
         this.session_hash = code;
 
@@ -27,12 +29,35 @@ class ControladorSessao {
 
     checarSessao(request) {
 
-        if (!request.hasOwnProperty('cookies')) return false;
+        if (!request.hasOwnProperty('cookies')) throw "Usuário não logado!";
       
-        if (request.cookies.logged == undefined) return false
+        if (request.cookies.logged == undefined) throw "Usuário não logado!";
       
         return request.cookies.hasOwnProperty('logged');
       
+    }
+
+    async getSessaoUsuario(request) {
+
+        return new Promise(
+            async (resolve, reject) => {
+
+                const session_hash = request.cookies.logged;
+
+                var usuarioBDR = this.fabricaBDR.criarRepositorioUsuario();
+
+                const usuario = await usuarioBDR.getBySession(session_hash);
+
+                // if (usuario.senha !== senha) return reject("Login/Senha incorreto(s)");
+
+                // usuarioBDR.atualizarSessionHash(usuario.id, session_hash);
+
+                resolve(usuario);
+
+            }
+        );
+
+
     }
       
 

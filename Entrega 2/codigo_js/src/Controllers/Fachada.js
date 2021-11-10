@@ -1,5 +1,6 @@
 const ControladorUsuario    = require('../Models/ControladorUsuario');
 const ControladorSessao     = require('../Models/ControladorSessao');
+const ControladorCurso      = require('../Models/ControladorCurso');
 class Fachada {
 
     static cadastrarUsuario({
@@ -58,7 +59,58 @@ class Fachada {
 
     }
 
-    // static criarCurso
+    static criarCurso({
+        nome,
+        descricao,
+        valor,
+        req
+    }) {
+
+        return new Promise(
+            async (resolve, reject) => {
+
+                var controladorSessao = new ControladorSessao();
+
+                var controladorCurso = new ControladorCurso();
+
+                try {
+
+                    controladorSessao.checarSessao(req);
+
+                    const usuario = await controladorSessao.getSessaoUsuario(req);
+
+                    console.log("criar curso usuario", usuario);
+                    
+                    const curso = await controladorCurso.cadastrarCurso(
+                        nome,
+                        descricao,
+                        valor,
+                        usuario.id
+                    );
+
+                    resolve(true);
+
+                } catch (e) {
+                    reject(e);
+                }
+
+            }
+        );
+
+        
+
+        // var controladorCurso = new ControladorCurso();
+
+        // checarSessao
+
+        // return controladorCurso.cadastrarCurso(
+        //     nome,
+        //     descricao,
+        //     valor,
+        //     1
+        // );
+
+    }
 
     // static fazerLogin(
     //     login,

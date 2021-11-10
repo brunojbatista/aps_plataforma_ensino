@@ -7,6 +7,22 @@ class CursoBDR {
 
     constructor() {}
 
+    async inserirCurso(
+        nome,
+        descricao,
+        valor,
+        professor_id
+    ) {
+        
+        return await CursoModel.create({
+            nome,
+            descricao,
+            valor,
+            professor_id
+        });
+
+    }
+
     // async inserirCurso(
     //     cpf,
     //     nome,

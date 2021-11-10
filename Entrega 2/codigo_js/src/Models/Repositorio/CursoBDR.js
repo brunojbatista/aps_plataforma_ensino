@@ -23,6 +23,11 @@ class CursoBDR {
 
     }
 
+    async getAllCursos() {
+        const [results] = await sequelize.query(`SELECT id, nome, descricao, valor, professor_id, createdAt FROM cursos WHERE 1`);
+        return results;
+    }
+
     // async inserirCurso(
     //     cpf,
     //     nome,

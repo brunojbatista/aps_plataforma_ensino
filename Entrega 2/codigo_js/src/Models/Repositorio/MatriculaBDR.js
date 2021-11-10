@@ -1,78 +1,64 @@
 // const GlobalUtils = require('../../Utils/Global');
-const CursoModel = require('../../../database/models/Curso');
+const MatriculaModel = require('../../../database/models/Matricula');
 const { Op } = require("sequelize");
 const sequelize = require("../../../database/db");
 
-class CursoBDR {
+class MatriculaBDR {
 
     constructor() {}
 
-    async inserirCurso(
-        nome,
-        descricao,
-        valor,
-        professor_id
+    async inserirMatricula(
+        curso_id,
+        aluno_id
     ) {
         
-        return await CursoModel.create({
-            nome,
-            descricao,
-            valor,
-            professor_id
+        return await MatriculaModel.create({
+            curso_id,
+            aluno_id
         });
 
     }
 
-    async getAllCursos() {
-        const [results] = await sequelize.query(`
-            SELECT 
-                c.id as curso_id, 
-                c.nome as curso_nome, 
-                c.descricao as curso_descricao, 
-                c.valor as curso_valor, 
-                c.createdAt as curso_criacao, 
-                u.id as professor_id,
-                u.nome as professor_nome,
-                u.email as professor_email
-            FROM cursos c
-            INNER JOIN usuarios u
-            ON u.id = c.professor_id 
-            WHERE 1
-        `);
-        return results;
-    }
-
-    async hasCurso(curso_id) {
-        const [results] = await sequelize.query(`SELECT id FROM cursos WHERE id = '${curso_id}'`);
+    async hasMatricula(
+        curso_id,
+        aluno_id
+    ) {
+        const [results] = await sequelize.query(`SELECT id FROM matriculas WHERE curso_id = '${curso_id}' and aluno_id = '${aluno_id}'`);
         return results.length > 0;
     }
 
-    // async inserirCurso(
-    //     cpf,
-    //     nome,
-    //     login,
-    //     senha,
-    //     email,
-    //     telefone
-    // ) {
-        
-    //     var novoUsuario = await CursoModel.create({
-    //         cpf,
-    //         nome,
-    //         login,
-    //         senha,
-    //         email,
-    //         telefone
-    //     });
-        
-    //     return novoUsuario;
-
-    // }
+    async getCursosMatriculados(aluno_id) {
+        const [results] = await sequelize.query(`
+            SELECT 
+                m.id as matricula_id,
+                m.createdAt as matricula_criacao,
+                c.id as curso_id, 
+                c.nome, 
+                c.descricao, 
+                c.valor, 
+                c.professor_id,
+                u.id as professor_id,
+                u.nome as professor_nome,
+                u.email as professor_email
+            FROM matriculas m 
+            INNER JOIN cursos c 
+            ON c.id = m.curso_id 
+            INNER JOIN usuarios u
+            ON u.id = c.professor_id
+            WHERE aluno_id = '${aluno_id}'`);
+        return results;
+    }
 
     // async getByID(usuario_id) {
     //     var usuario = await UsuarioModel.findByPk(usuario_id);
     //     // console.log("usuario", usuario)
     //     return usuario;
+    // }
+
+    // async getBySession(session_hash) {
+    //     const [results] = await sequelize.query(`SELECT * FROM usuarios WHERE session_hash = '${session_hash}'`);
+    //     if (results.length <= 0) throw "Sessão inexistente"; 
+    //     return results[0];
     // }
 
     // async getByLogin(login) {
@@ -99,4 +85,4 @@ class CursoBDR {
 
 }
 
-module.exports = CursoBDR;
+module.exports = MatriculaBDR;

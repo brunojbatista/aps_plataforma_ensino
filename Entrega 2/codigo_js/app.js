@@ -8,6 +8,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var coursesRouter = require('./routes/courses');
 var cartoesRouter = require('./routes/cards');
+var testeRouter = require('./routes/test');
 const requestIp = require("request-ip");
 
 const bodyParser      = require('body-parser');
@@ -61,6 +62,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '/public/')));
 
 app.use('/', indexRouter);
+app.use('/testes', testeRouter);
 app.use('/usuarios', usersRouter);
 app.use('/cursos', coursesRouter);
 app.use('/cartoes', cartoesRouter);

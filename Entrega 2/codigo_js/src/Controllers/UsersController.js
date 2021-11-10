@@ -1,4 +1,5 @@
-const Fachada       = require('./Fachada');
+const Fachada           = require('./Fachada');
+// const { IncomingForm }  = require('formidable');
 const Formidable    = require('formidable');
 
 exports.get = (req, res, next) => {
@@ -36,26 +37,50 @@ exports.cadastrarUsuario = (req, res, next) => {
 
     var form = new Formidable.IncomingForm();
 
-    form.parse(req, async function (err, fields, files) {
-    
-        // console.log(fields);
+    form.parse(
+        req, 
+        async function (err, fields, files) {
 
-        try {
-            await Fachada.cadastrarUsuario(
-                fields
-            );
-            res.status(200).json({
-                'code': 200,
-                'msg': 'Usuário cadastrado com sucesso!'
-            });
-        } catch (e) {
-            res.status(400).json({
-                'code': 400,
-                'msg': e
-            });
+            try {
+                await Fachada.cadastrarUsuario(
+                    fields
+                );
+                res.status(200).json({
+                    'code': 200,
+                    'msg': 'Usuário cadastrado com sucesso!'
+                });
+            } catch (e) {
+                res.status(400).json({
+                    'code': 400,
+                    'msg': e
+                });
+            }
+
         }
+    );   
 
-    });
+    // var form = new Formidable.IncomingForm();
+
+    // form.parse(req, async function (err, fields, files) {
+    
+    //     // console.log(fields);
+
+    //     try {
+    //         await Fachada.cadastrarUsuario(
+    //             fields
+    //         );
+    //         res.status(200).json({
+    //             'code': 200,
+    //             'msg': 'Usuário cadastrado com sucesso!'
+    //         });
+    //     } catch (e) {
+    //         res.status(400).json({
+    //             'code': 400,
+    //             'msg': e
+    //         });
+    //     }
+
+    // });
     
 
     
@@ -82,4 +107,47 @@ exports.cadastrarUsuario = (req, res, next) => {
     //     });
     // }
     // res.status(200).send(`Requisição recebida com sucesso!`);
+};
+
+exports.autenticar = (req, res, next) => {
+
+    var params = {
+        res
+    }
+    
+    var form = new Formidable.IncomingForm();
+
+    form.parse(
+        req, 
+        async function (err, fields, files) {
+    
+            // console.log(fields);
+
+            params = {
+                ...params,
+                ...fields
+            };
+
+            try {
+                const usuario = await Fachada.autenticar(
+                    params
+                );
+                res.status(200).json({
+                    'code': 200,
+                    'msg': 'Usuário autenticado com sucesso!',
+                    'body': {
+                        'id': usuario.id,
+                        'session_hash': usuario.session_hash
+                    }
+                });
+            } catch (e) {
+                res.status(400).json({
+                    'code': 400,
+                    'msg': e
+                });
+            }
+
+        }
+    );
+    
 };

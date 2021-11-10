@@ -24,58 +24,38 @@ class UsuarioBDR {
             email,
             telefone
         });
-        // console.log("novoUsuario", novoUsuario)
+        
         return novoUsuario;
 
     }
 
     async getByID(usuario_id) {
         var usuario = await UsuarioModel.findByPk(usuario_id);
-        console.log("usuario", usuario)
+        // console.log("usuario", usuario)
         return usuario;
     }
 
     async getByLogin(login) {
-        var usuario = await UsuarioModel.findOne({
-            'login': login
-        });
-        console.log("usuario", usuario)
-        return usuario;
+        const [results] = await sequelize.query(`SELECT * FROM usuarios WHERE login = '${login}'`);
+        if (results.length <= 0) throw "Login/Senha incorreto(s)"; 
+        return results[0];
     }
 
     async hasUsuarioByCPF(cpf) {
         var [results] = await sequelize.query(`SELECT id FROM usuarios WHERE cpf = '${cpf}'`);
-        // console.log('hasUsuarioByCPF', results);
         return results.length > 0;
     }
 
     async hasUsuarioByLogin(login) {
         var [results] = await sequelize.query(`SELECT id FROM usuarios WHERE login = '${login}'`);
-        // console.log('hasUsuarioByLogin', results);
         return results.length > 0;
     }
 
-    // async hasUsuario(campo) {
-    //     var usuario = await UsuarioModel.findOne({
-    //         where: {
-    //             [Op.or]: [
-    //                 {
-    //                     cpf: {
-    //                         [Op.eq]: campo
-    //                     }
-    //                 },
-    //                 {
-    //                     login: {
-    //                         [Op.eq]: campo
-    //                     }
-    //                 }
-    //             ]
-    //         }
-            
-    //     });
-    //     // console.log("usuario", usuario)
-    //     return usuario !== null;
-    // }
+    async atualizarSessionHash(id, session_hash) {
+        const usuario = await UsuarioModel.findByPk(id);
+        usuario.session_hash = session_hash;
+        return usuario.save();
+    }
 
 }
 

@@ -53,6 +53,30 @@ class ControladorUsuario {
         
     }
 
+    async autenticar(
+        login, 
+        senha,
+        session_hash
+    ) {
+
+        return new Promise(
+            async (resolve, reject) => {
+
+                var usuarioBDR = this.fabricaBDR.criarRepositorioUsuario();
+
+                const usuario = await usuarioBDR.getByLogin(login);
+
+                if (usuario.senha !== senha) return reject("Login/Senha incorreto(s)");
+
+                usuarioBDR.atualizarSessionHash(usuario.id, session_hash);
+
+                resolve({...usuario, session_hash});
+
+            }
+        );
+
+    }
+
 }
 
 module.exports = ControladorUsuario;

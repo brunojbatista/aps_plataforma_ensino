@@ -36,11 +36,17 @@ class Fachada {
 
                 var controladorSessao = new ControladorSessao();
 
-                var session_hash = await controladorSessao.registrarSessao(res);
-
                 var controladorUsuario = new ControladorUsuario();
 
+                var session_hash = await controladorSessao.registrarSessao(res);
+
+                // resolve(true);
+
                 try {
+
+                    var session_hash = await controladorSessao.registrarSessao(res);
+
+                    // resolve(true);
                     
                     const usuario = await controladorUsuario.autenticar(
                         login,

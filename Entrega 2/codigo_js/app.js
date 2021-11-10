@@ -5,8 +5,8 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var coursesRouter = require('./routes/courses');
+var usersRouter = require('./routes/usuarios');
+var coursesRouter = require('./routes/cursos');
 const requestIp = require("request-ip");
 
 const bodyParser      = require('body-parser');

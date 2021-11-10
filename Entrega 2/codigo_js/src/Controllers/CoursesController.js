@@ -11,7 +11,7 @@ exports.cadastrarCurso = (req, res, next) => {
         async function (err, fields, files) {
     
             console.log('fields', fields);
-
+            
             try {
                 const usuario = await Fachada.criarCurso({
                     ...fields,

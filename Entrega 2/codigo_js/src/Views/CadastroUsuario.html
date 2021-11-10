@@ -37,7 +37,7 @@
           formData.append("email", email);
           formData.append("telefone", telefone);
 
-          axios.post("users/cadastro", formData).then(res => {
+          axios.post("usuarios/cadastro", formData).then(res => {
             console.log(res);
             console.log(res.data);
           });

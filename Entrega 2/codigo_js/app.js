@@ -6,6 +6,7 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var coursesRouter = require('./routes/courses');
 const requestIp = require("request-ip");
 
 const bodyParser      = require('body-parser');
@@ -18,8 +19,8 @@ const GlobalUtils     = require('./src/Utils/Global');
 const database      = require('./database/db');
 
 (async () => {
-   await database.sync();
-  //await database.sync({force: true});
+  await database.sync();
+  // await database.sync({force: true});
 })();
 
 var app = express();
@@ -59,7 +60,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '/public/')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/usuarios', usersRouter);
+app.use('/cursos', coursesRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

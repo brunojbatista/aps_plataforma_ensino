@@ -2,6 +2,7 @@ const ControladorUsuario    = require('../Models/ControladorUsuario');
 const ControladorSessao     = require('../Models/ControladorSessao');
 const ControladorCurso      = require('../Models/ControladorCurso');
 const ControladorCartao     = require('../Models/ControladorCartao');
+const ControladorMatricula  = require('../Models/ControladorMatricula');
 class Fachada {
 
     static cadastrarUsuario({
@@ -104,19 +105,6 @@ class Fachada {
             }
         );
 
-        
-
-        // var controladorCurso = new ControladorCurso();
-
-        // checarSessao
-
-        // return controladorCurso.cadastrarCurso(
-        //     nome,
-        //     descricao,
-        //     valor,
-        //     1
-        // );
-
     }
 
     static async listarCursos () {
@@ -197,6 +185,93 @@ class Fachada {
         );
 
     }
+
+
+
+
+
+
+
+
+
+    // ------------------------------------------------------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------------------------------------------------
+
+    static async testarMatricula({
+        curso_id,
+        req
+    }) {
+
+        return new Promise(
+            async (resolve, reject) => {
+
+                try {
+
+                    var controladorSessao = new ControladorSessao();
+
+                    var controladorMatricula = new ControladorMatricula();
+
+                    controladorSessao.checarSessao(req);
+
+                    const usuario = await controladorSessao.getSessaoUsuario(req);
+
+                    const usuario_id = usuario.id;
+
+                    console.log("criar curso usuario", usuario);
+                    
+                    await controladorMatricula.inserirMatricula(
+                        curso_id,
+                        usuario.id
+                    );
+
+                    resolve(true);
+
+                } catch (e) {
+                    reject(e);
+                }
+
+            }
+        );
+
+    }
+
+    static async testarCursosMatriculados({
+        req
+    }) {
+
+        return new Promise(
+            async (resolve, reject) => {
+
+                try {
+
+                    var controladorSessao = new ControladorSessao();
+
+                    var controladorMatricula = new ControladorMatricula();
+
+                    controladorSessao.checarSessao(req);
+
+                    const usuario = await controladorSessao.getSessaoUsuario(req);
+
+                    const usuario_id = usuario.id;
+
+                    console.log("criar curso usuario", usuario);
+                    
+                    const cursos = await controladorMatricula.getCursosMatriculados(
+                        usuario.id
+                    );
+
+                    resolve(cursos);
+
+                } catch (e) {
+                    reject(e);
+                }
+
+            }
+        );
+
+    }
+
 
     // static fazerLogin(
     //     login,

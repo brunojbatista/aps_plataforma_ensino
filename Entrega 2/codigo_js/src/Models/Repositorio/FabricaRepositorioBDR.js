@@ -4,6 +4,7 @@ const FabricaRepositorioAbstrata = require('./FabricaRepositorioAbstrata');
 const UsuarioBDR    = require('./UsuarioBDR');
 const CursoBDR      = require('./CursoBDR');
 const CartaoBDR     = require('./CartaoBDR');
+const MatriculaBDR     = require('./MatriculaBDR');
 // const database      = require('../../../database/db');
 
 class FabricaRepositorioBDR extends FabricaRepositorioAbstrata {
@@ -25,7 +26,9 @@ class FabricaRepositorioBDR extends FabricaRepositorioAbstrata {
     criarRepositorioCurso() {
         return new CursoBDR();
     }
-    criarRepositorioMatricula() {}
+    criarRepositorioMatricula() {
+        return new MatriculaBDR();
+    }
     criarRepositorioTransacao() {}
 
 }

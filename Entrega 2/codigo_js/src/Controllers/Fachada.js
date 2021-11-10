@@ -112,6 +112,47 @@ class Fachada {
 
     }
 
+    static async listarCursos () {
+
+        return new Promise(
+            async (resolve, reject) => {
+
+                var controladorCurso = new ControladorCurso();
+
+                const cursos = await controladorCurso.listarCursos();
+
+                resolve(cursos);
+
+                // var controladorSessao = new ControladorSessao();
+
+                // var controladorCurso = new ControladorCurso();
+
+                // try {
+
+                //     controladorSessao.checarSessao(req);
+
+                //     const usuario = await controladorSessao.getSessaoUsuario(req);
+
+                //     console.log("criar curso usuario", usuario);
+                    
+                //     const curso = await controladorCurso.cadastrarCurso(
+                //         nome,
+                //         descricao,
+                //         valor,
+                //         usuario.id
+                //     );
+
+                //     resolve(true);
+
+                // } catch (e) {
+                //     reject(e);
+                // }
+
+            }
+        );
+
+    }
+
     // static fazerLogin(
     //     login,
     //     senha

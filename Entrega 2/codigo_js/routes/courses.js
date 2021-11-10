@@ -12,4 +12,7 @@ router.get('/', function(req, res, next) {
 
 router.post('/cadastro', coursesController.cadastrarCurso);
 
+router.get('/listar', coursesController.listarCursos);
+
+
 module.exports = router;

@@ -35,6 +35,23 @@ class ControladorCurso {
         
     }
 
+    async listarCursos() {
+
+        return new Promise(
+            async (resolve, reject) => {
+
+                var cursoBDR = this.fabricaBDR.criarRepositorioCurso();
+
+                var cursos = await cursoBDR.getAllCursos();
+
+                return resolve(cursos);
+
+
+            }
+        );
+
+    }
+
 }
 
 module.exports = ControladorCurso;

@@ -58,6 +58,8 @@ class Fachada {
 
     }
 
+    // static criarCurso
+
     // static fazerLogin(
     //     login,
     //     senha

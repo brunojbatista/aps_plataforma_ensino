@@ -7,6 +7,7 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var coursesRouter = require('./routes/courses');
+var cartoesRouter = require('./routes/cards');
 const requestIp = require("request-ip");
 
 const bodyParser      = require('body-parser');
@@ -62,6 +63,7 @@ app.use(express.static(path.join(__dirname, '/public/')));
 app.use('/', indexRouter);
 app.use('/usuarios', usersRouter);
 app.use('/cursos', coursesRouter);
+app.use('/cartoes', cartoesRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

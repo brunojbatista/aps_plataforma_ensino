@@ -24,11 +24,11 @@ router.get('/TelaCurso', function(req, res, next) {
   res.sendFile(GlobalUtils.getHTMLFile('TelaCurso'));
 });
 
-router.get('/CadastroAluno', function(req, res, next) {
+router.get('/CadastroUsuario', function(req, res, next) {
 
   res.set('Content-Type', 'text/html');
 
-  res.sendFile(GlobalUtils.getHTMLFile('CadastroAluno'));
+  res.sendFile(GlobalUtils.getHTMLFile('CadastroUsuario'));
 });
 
 router.get('/CadastroCurso', function(req, res, next) {
@@ -38,11 +38,11 @@ router.get('/CadastroCurso', function(req, res, next) {
   res.sendFile(GlobalUtils.getHTMLFile('CadastroCurso'));
 });
 
-router.get('/TelaApresentacao', function(req, res, next) {
+router.get('/TelaLogin', function(req, res, next) {
 
   res.set('Content-Type', 'text/html');
 
-  res.sendFile(GlobalUtils.getHTMLFile('TelaApresentacao'));
+  res.sendFile(GlobalUtils.getHTMLFile('TelaLogin'));
 });
 
 // const Sessao     = require('../src/Models/Sessao');

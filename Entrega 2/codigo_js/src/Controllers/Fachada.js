@@ -1,6 +1,7 @@
 const ControladorUsuario    = require('../Models/ControladorUsuario');
 const ControladorSessao     = require('../Models/ControladorSessao');
-const ControladorCartao      = require('../Models/ControladorCartao');
+const ControladorCurso      = require('../Models/ControladorCurso');
+const ControladorCartao     = require('../Models/ControladorCartao');
 class Fachada {
 
     static cadastrarUsuario({

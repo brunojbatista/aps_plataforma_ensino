@@ -11,6 +11,7 @@ const browser         = require('detect-browser');
 const md5             = require('md5');
 const requestIp       = require('request-ip');
 const GlobalUtils     = require('./src/Utils/Global');
+const axios           = require('axios');
 
 const { Sequelize } = require('sequelize');
 
@@ -21,6 +22,8 @@ const { Sequelize } = require('sequelize');
 // }
 
 app = express();
+
+app = axios();
 
 app.use(
     express.static(__dirname + '/public')

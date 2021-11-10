@@ -1,24 +1,34 @@
+const Fachada           = require('./Fachada');
+// const { IncomingForm }  = require('formidable');
+const Formidable    = require('formidable');
 
+exports.cadastrarCurso = (req, res, next) => {
 
-exports.get = (req, res, next) => {
-    res.status(200).send('Requisição recebida com sucesso!');
-};
+    var form = new Formidable.IncomingForm();
 
-exports.getById = (req, res, next) => {
-    let id = req.params.id;
-    res.status(200).send(`Requisição recebida com sucesso! user_id: ${id}`);
-};
+    form.parse(
+        req, 
+        async function (err, fields, files) {
+    
+            console.log('fields', fields);
 
-exports.post = (req, res, next) => {
-    res.status(201).send('Requisição recebida com sucesso!' + JSON.stringify(req.body));
-};
+            try {
+                const usuario = await Fachada.criarCurso({
+                    ...fields,
+                    req
+                });
+                res.status(200).json({
+                    'code': 200,
+                    'msg': 'Curso criado com sucesso!',
+                });
+            } catch (e) {
+                res.status(400).json({
+                    'code': 400,
+                    'msg': e
+                });
+            }
 
-exports.put = (req, res, next) => {
-    let id = req.params.id;
-    res.status(201).send(`Requisição recebida com sucesso! ${id}`);
-};
-
-exports.delete = (req, res, next) => {
-    let id = req.params.id;
-    res.status(200).send(`Requisição recebida com sucesso! ${id}`);
+        }
+    );
+    
 };

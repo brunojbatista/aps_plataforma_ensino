@@ -62,15 +62,21 @@ class ControladorUsuario {
         return new Promise(
             async (resolve, reject) => {
 
-                var usuarioBDR = this.fabricaBDR.criarRepositorioUsuario();
+                try {
 
-                const usuario = await usuarioBDR.getByLogin(login);
+                    var usuarioBDR = this.fabricaBDR.criarRepositorioUsuario();
 
-                if (usuario.senha !== senha) return reject("Login/Senha incorreto(s)");
+                    const usuario = await usuarioBDR.getByLogin(login);
 
-                usuarioBDR.atualizarSessionHash(usuario.id, session_hash);
+                    if (usuario.senha !== senha) return reject("Login/Senha incorreto(s)");
 
-                resolve({...usuario, session_hash});
+                    usuarioBDR.atualizarSessionHash(usuario.id, session_hash);
+
+                    resolve({...usuario, session_hash});
+
+                } catch (e) {
+                    return reject(e);
+                }
 
             }
         );

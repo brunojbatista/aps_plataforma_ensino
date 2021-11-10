@@ -18,8 +18,8 @@ const GlobalUtils     = require('./src/Utils/Global');
 const database      = require('./database/db');
 
 (async () => {
-  // await database.sync();
-  await database.sync({force: true});
+   await database.sync();
+  //await database.sync({force: true});
 })();
 
 var app = express();

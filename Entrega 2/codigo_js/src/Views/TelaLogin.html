@@ -11,15 +11,30 @@
   <body>
     <div class="login">
       <div class="form">
-        <form class="login-form">
           <span class="material-icons">Login</span>
-          <input type="text" placeholder="login" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required/>
-          <input type="password" placeholder="senha" required />
-          <button>Entrar</button>
+          <input id="login" type="text" placeholder="login" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required/>
+          <input id="senha" type="password" placeholder="senha" required />
           <p></p>
-          <button>Cadastro Aluno</button>
-        </form>  
+          <button onclick="login()">Entrar</button>
       </div>
+      <script>
+        function login(){
+          const formData = new FormData();
+
+          let login = document.querySelector("#login").value;
+          let senha = document.querySelector("#senha").value;
+
+        
+          formData.append("login", login);
+          formData.append("senha", senha);
+
+          axios.post("users/autenticar", formData).then(res => {
+            console.log(res);
+            console.log(res.data);
+          });
+        }
+      </script>
+      <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     </div>
 
     <!-- Optional JavaScript; choose one of the two! -->

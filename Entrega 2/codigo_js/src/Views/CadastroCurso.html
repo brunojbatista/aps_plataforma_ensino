@@ -14,10 +14,17 @@
             <input id="nome" type="text" placeholder="Nome" required/>
             <input id="valor" type="text" placeholder="Valor" required/>
             <textarea id="descricao" type="text" placeholder="Descrição" name="" id="" cols="45" rows="10" required></textarea>
-            <button onclick="cadastrarCurso()">Cadastrar Curso</button>
+            <div class="container-row">
+              <button class="btn-wd wd-0" onclick="voltarDashboard()">Voltar para Dashboard</button>
+              <button class="btn-wd wd-0" onclick="cadastrarCurso()">Cadastrar Curso</button>
+            </div>
+            
         </div>
       </div>
       <script>
+        function voltarDashboard(){
+          window.location = "/TelaInicial";
+        }
         function cadastrarCurso(){
           const formData = new FormData();
 
@@ -29,9 +36,14 @@
           formData.append("valor", valor);
           formData.append("descricao", descricao);
 
-          axios.post("cursos/criarCurso", formData).then(res => {
+          axios.post("cursos/cadastro", formData).then(res => {
             console.log(res);
             console.log(res.data);
+            if(res.status == 200){
+              alert("Curso Cadastrado Com Sucesso!")
+            } 
+          }).catch((error) => {
+            alert("Dados Incorretos");
           });
         }
       </script>

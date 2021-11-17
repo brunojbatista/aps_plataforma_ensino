@@ -17,19 +17,14 @@
             </div>
             <div id="Todos" class="w3-container tab" style="display: none;">
                 <h2>Todos os Cursos</h2>
-                <table style="width: 100%">
+                <table style="width: 100%" id="tabela">
                     <tr>
                         <th>Nome</th>
-                        <th>Preço</th>
+                        <th>Preço (R$)</th>
                         <th>Descrição</th>
                         <!-- <th>Ver Mais</th> -->
                     </tr>
-                    <tr id="primeira">
-                        <td id="nome">-</td>
-                        <td id="valor">-</td>
-                        <td id="descricao">-</td>
-                        <!--  <td><a href="">Explorar Mais</a></td> -->
-                    </tr>
+                    
                 </table>
             </div>
             <div id="Meus" class="w3-container tab" style="display: none;">
@@ -47,10 +42,17 @@
                     </tr>
                 </table>
             </div> 
-            <button id="listar-cursos" onclick="listarCursos()">Listar Cursos</button>
+            <div class="container-row">
+                <button class="btn-wd" onclick="sair()">Sair</button>
+                <button class="btn-wd" onclick="listarCursos()">Listar Cursos</button>
+            </div>
         </div>
       </div>
     <script>
+        function sair(){
+            window.location = "/";   
+        }
+
         function openTab(tab) {
           var i;
           var x = document.getElementsByClassName("tab");
@@ -67,15 +69,35 @@
             console.log(res.data.body);
             let cursos = res.data.body;
             console.log(cursos[0]);
-            console.log(cursos[0].nome);
-            console.log(cursos[0].valor);
-            console.log(cursos[0].descricao);
+            console.log(cursos[0].curso_nome);
+            console.log(cursos[0].curso_valor);
+            console.log(cursos[0].curso_descricao);
 
-            var td = document.createElement("td");
 
-            document.getElementById("nome").innerHTML  = cursos[0].nome;
-            document.getElementById("valor").innerHTML  = cursos[0].valor;
-            document.getElementById("descricao").innerHTML  = cursos[0].descricao;
+            cursos.map(function (curso){
+
+                var tr = document.createElement("tr");
+                tr.id = "tr-curso";
+                var td_nome = document.createElement("td");
+                var td_valor = document.createElement("td");
+                var td_descricao = document.createElement("td");
+
+                td_nome.innerHTML = curso.curso_nome;
+                td_valor.innerHTML = curso.curso_valor;
+                td_descricao.innerHTML = curso.curso_descricao;
+
+
+                document.querySelector("#tabela").appendChild(tr);
+                document.querySelector("#tr-curso").appendChild(td_nome);
+                document.querySelector("#tr-curso").appendChild(td_valor);
+                document.querySelector("#tr-curso").appendChild(td_descricao);
+
+               
+            });
+
+            //document.getElementById("nome").innerHTML  = cursos[0].curso_nome;
+            //document.getElementById("valor").innerHTML  = cursos[0].curso_valor;
+            //document.getElementById("descricao").innerHTML  = cursos[0].curso_descricao;
           });
 
         }

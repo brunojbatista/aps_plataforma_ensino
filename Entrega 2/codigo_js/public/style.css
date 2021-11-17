@@ -84,6 +84,10 @@ body {
 }
 
 /* Tela Inicial */
+.wd-0{
+  width: 0% !important;
+}
+
 .wd-100{
   max-width: 500px !important;
 }

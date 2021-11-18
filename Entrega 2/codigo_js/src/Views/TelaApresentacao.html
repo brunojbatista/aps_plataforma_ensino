@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/style.css">
     <title>Apresentação Curso</title>
 </head>
 <body>
@@ -16,10 +16,23 @@
             <p>R$199.99</p>
             <textarea   name="" id="" cols="25" rows="7" disabled>Learn and build projects with pure JavaScript (No frameworks or libraries)</textarea>
             <div class="container-row">
-              <button class="btn-wd">Voltar Dashboard</button>
+              <button class="btn-wd" onclick="sair()">Voltar Dashboard</button>
               <button class="btn-wd">Comprar Curso</button>
             </div>
         </div>
       </div>
+      <script>
+        function sair(){
+            window.location = "/TelaInicial";   
+        }
+        function listarCursos(){
+          axios.get("cursos/listar").then(res => {
+            let cursos = res.data.body;
+            
+            
+          });
+
+        }
+      </script>
 </body>
 </html>

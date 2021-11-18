@@ -22,7 +22,7 @@
                         <th>Nome</th>
                         <th>Preço (R$)</th>
                         <th>Descrição</th>
-                        <!-- <th>Ver Mais</th> -->
+                        <th>Comprar Curso</th> 
                     </tr>
                     
                 </table>
@@ -64,40 +64,41 @@
 
         function listarCursos(){
           axios.get("cursos/listar").then(res => {
-            console.log(res);
-            console.log(res.data);
-            console.log(res.data.body);
             let cursos = res.data.body;
-            console.log(cursos[0]);
-            console.log(cursos[0].curso_nome);
-            console.log(cursos[0].curso_valor);
-            console.log(cursos[0].curso_descricao);
-
+            let i = 0;
+            let trNome
 
             cursos.map(function (curso){
-
+                
                 var tr = document.createElement("tr");
-                tr.id = "tr-curso";
+                trNome = "tr-curso" + i;
+                tr.id = trNome;
                 var td_nome = document.createElement("td");
                 var td_valor = document.createElement("td");
                 var td_descricao = document.createElement("td");
+                var td_mais = document.createElement("td");
+                tdNome = "td-curso" + i
+                td_mais.id = tdNome;
+                var a_mais = document.createElement("a");
+               
+
 
                 td_nome.innerHTML = curso.curso_nome;
                 td_valor.innerHTML = curso.curso_valor;
                 td_descricao.innerHTML = curso.curso_descricao;
+                a_mais.innerHTML = "Comprar";
 
+                a_mais.href = "/TelaApresentacao" + "/id=" + curso.curso_id;
 
                 document.querySelector("#tabela").appendChild(tr);
-                document.querySelector("#tr-curso").appendChild(td_nome);
-                document.querySelector("#tr-curso").appendChild(td_valor);
-                document.querySelector("#tr-curso").appendChild(td_descricao);
+                document.querySelector("#" + trNome).appendChild(td_nome);
+                document.querySelector("#" + trNome).appendChild(td_valor);
+                document.querySelector("#" + trNome).appendChild(td_descricao);
+                document.querySelector("#" + trNome).appendChild(td_mais);
+                document.querySelector("#" + tdNome).appendChild(a_mais);
 
-               
+                i++;
             });
-
-            //document.getElementById("nome").innerHTML  = cursos[0].curso_nome;
-            //document.getElementById("valor").innerHTML  = cursos[0].curso_valor;
-            //document.getElementById("descricao").innerHTML  = cursos[0].curso_descricao;
           });
 
         }

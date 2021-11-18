@@ -30,9 +30,6 @@
           formData.append("senha", senha);
 
           axios.post("usuarios/autenticar", formData).then(res => {
-            //console.log(res);
-            //console.log(res.data);
-            //console.log(res.status);
             if(res.status == 200){
               window.location = "/TelaInicial";
             } 

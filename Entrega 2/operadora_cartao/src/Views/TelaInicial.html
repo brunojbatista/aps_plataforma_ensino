@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+</head>
+<body>
+    <div class="login">
+        <div class="form">
+            <span class="material-icons">Dashboard</span>
+            <div class="bar-blue">
+                <button class="tabs-style" onclick="openTab('Todos')">Todos os Cursos</button>
+                <!-- <button class="tabs-style" onclick="openTab('Meus')">Meus Cursos</button> -->
+            </div>
+            <div id="Todos" class="w3-container tab" style="display: none;">
+                <h2>Todos os Cursos</h2>
+                <table style="width: 500px;">
+                    <tr>
+                        <th>Nome</th>
+                        <th>Preço</th>
+                        <th>Descricao</th>
+                        <!-- <th>Ver Mais</th> -->
+                    </tr>
+                    <tr id="primeira">
+                        <td id="nome">-</td>
+                        <td id="valor">-</td>
+                        <td id="descricao">-</td>
+                        <!--  <td><a href="">Explorar Mais</a></td> -->
+                    </tr>
+                </table>
+            </div>
+           <!-- <div id="Meus" class="w3-container tab" style="display: none;">
+                <h2>Meus Cursos</h2>
+                <table style="width: 500px;">
+                    <tr>
+                        <th>Curso</th>
+                        <th>Professor</th>
+                        <th>Ver Mais</th>
+                    </tr>
+                    <tr>
+                        <td>Modern JavaScript From The Beginning</td>
+                        <td>Bruno Jorge Nogueira Batista</td>
+                        <td><a href="">Acessar Aulas</a></td>
+                    </tr>
+                </table>
+            </div> --> 
+            <button onclick="listarCursos()">Listar Cursos</button>
+        </div>
+      </div>
+    <script>
+        function openTab(tab) {
+          var i;
+          var x = document.getElementsByClassName("tab");
+          for (i = 0; i < x.length; i++) {
+            x[i].style.display = "none";  
+          }
+          document.getElementById(tab).style.display = "block";  
+        }
+
+        function listarCursos(){
+          axios.get("cursos/listarCursos").then(res => {
+            console.log(res);
+            console.log(res.data);
+            console.log(res.data.body);
+            let cursos = res.data.body;
+            console.log(cursos[0]);
+            console.log(cursos[0].nome);
+            console.log(cursos[0].valor);
+            console.log(cursos[0].descricao);
+
+            var td = document.createElement("td");
+
+            document.getElementById("nome").innerHTML  = cursos[0].nome;
+            document.getElementById("valor").innerHTML  = cursos[0].valor;
+            document.getElementById("descricao").innerHTML  = cursos[0].descricao;
+          });
+          
+
+        }
+     </script>
+     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</body>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Comfortaa&display=swap');
+    
+    html{
+        height: 100%;
+    }
+
+    body {
+      background: linear-gradient(90deg, #4b6cb7 0%, #182848 100%);
+      height: 100%;
+    }
+
+    .login {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      font-family: 'Comfortaa', cursive;
+    }
+
+    .form {
+      position: relative;
+      z-index: 1;
+      background: #FFFFFF;
+      border-radius: 10px;
+      max-width: 600px;
+      margin: 0 auto 100px;
+      padding: 45px;
+      text-align: center;
+    }
+
+    .form input {
+      outline: 0;
+      background: #f2f2f2;
+      width: 100%;
+      border: 0;
+      border-radius: 5px;
+      padding: 15px;
+      box-sizing: border-box;
+      font-size: 14px;
+      font-family: 'Comfortaa', cursive;
+    }
+
+    .form input:focus {
+      background: #dbdbdb;
+    }
+
+    .form button {
+      font-family: 'Comfortaa', cursive;
+      text-transform: uppercase;
+      outline: 0;
+      background: #4b6cb7;
+      width: 100%;
+      border: 0;
+      border-radius: 5px;
+      padding: 15px;
+      color: #FFFFFF;
+      font-size: 14px;
+      -webkit-transition: all 0.3 ease;
+      transition: all 0.3 ease;
+      cursor: pointer;
+    }
+
+    .form button:active {
+      background: #395591;
+    }
+
+    .form span {
+      font-size: 50px;
+      color: #4b6cb7;
+    }
+    .bar-blue{
+        display: flex;
+        flex-direction: row;
+    }
+
+    .tabs-style{
+        background-color: rgb(81, 81, 235) !important;
+    }
+  </style>
+</html>

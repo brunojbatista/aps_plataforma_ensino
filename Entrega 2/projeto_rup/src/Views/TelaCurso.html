@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tela Curso</title>
+</head>
+<body>
+    <div class="login">
+        <div class="form">
+          <form class="login-form">
+            <span class="material-icons">Modern JavaScript From The Beginning</span>
+            <div class="bar-blue">
+                <button class="tabs-style" onclick="openTab('Aula1')">Aula 1</button>
+                <button class="tabs-style" onclick="openTab('Aula2')">Aula 2</button>
+                <button class="tabs-style" onclick="openTab('Aula3')">Aula 3</button>
+            </div>
+            <div id="Aula1" class="w3-container tab" style="display: none;">
+                <h2>Aula 1</h2>
+                <iframe src="https://www.youtube.com/embed/Ptbk2af68e8" frameborder="0" height="300" width="500"></iframe>
+            </div>
+            <div id="Aula2" class="w3-container tab" style="display: none;">
+                <h2>Aula 2</h2>
+                <iframe src="https://www.youtube.com/embed/rUTKomc2gG8" frameborder="0" height="300" width="500"></iframe>
+            </div>
+            <div id="Aula3" class="w3-container tab" style="display: none;">
+                <h2>Aula 3</h2>
+                <iframe src="https://www.youtube.com/embed/FdePtO5JSd0" frameborder="0" height="300" width="500"></iframe>
+            </div>
+            <button>Voltar a Dashboard</button>
+          </form>  
+        </div>
+      </div>
+      <script>
+        function openTab(tab) {
+          var i;
+          var x = document.getElementsByClassName("tab");
+          for (i = 0; i < x.length; i++) {
+            x[i].style.display = "none";  
+          }
+          document.getElementById(tab).style.display = "block";  
+        }
+     </script>
+</body>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Comfortaa&display=swap');
+    
+    html{
+        height: 100%;
+    }
+
+    body {
+      background: linear-gradient(90deg, #4b6cb7 0%, #182848 100%);
+      height: 100%;
+    }
+
+    .login {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      font-family: 'Comfortaa', cursive;
+    }
+
+    .form {
+      position: relative;
+      z-index: 1;
+      background: #FFFFFF;
+      border-radius: 10px;
+      max-width: 600px;
+      margin: 0 auto 100px;
+      padding: 45px;
+      text-align: center;
+    }
+
+    .form input {
+      outline: 0;
+      background: #f2f2f2;
+      width: 100%;
+      border: 0;
+      border-radius: 5px;
+      padding: 15px;
+      box-sizing: border-box;
+      font-size: 14px;
+      font-family: 'Comfortaa', cursive;
+    }
+
+    .form input:focus {
+      background: #dbdbdb;
+    }
+
+    .form button {
+      font-family: 'Comfortaa', cursive;
+      text-transform: uppercase;
+      outline: 0;
+      background: #4b6cb7;
+      width: 100%;
+      border: 0;
+      border-radius: 5px;
+      padding: 15px;
+      color: #FFFFFF;
+      font-size: 14px;
+      -webkit-transition: all 0.3 ease;
+      transition: all 0.3 ease;
+      cursor: pointer;
+    }
+
+    .form button:active {
+      background: #395591;
+    }
+
+    .form span {
+      font-size: 50px;
+      color: #4b6cb7;
+    }
+    .bar-blue{
+        display: flex;
+        flex-direction: row;
+    }
+
+    .tabs-style{
+        background-color: rgb(81, 81, 235) !important;
+    }
+  </style>
+</html>

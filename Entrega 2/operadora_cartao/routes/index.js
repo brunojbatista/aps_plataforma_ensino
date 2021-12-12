@@ -2,13 +2,15 @@ var express = require('express');
 const Formidable    = require('formidable');
 var router = express.Router();
 
-router.get('/teste', function(req, res, next) {
+router.post('/teste', function(req, res, next) {
     
   // console.log("teste...................");
 
   res.set('Content-Type', 'text/html');
 
-  res.sendFile('teste');
+  console.log(req.body)
+
+  res.send('respond with a resource');
 
   // res.status(200).json({
   //     'code': 200,
@@ -18,7 +20,7 @@ router.get('/teste', function(req, res, next) {
   // var form = new Formidable.IncomingForm();
 
   // form.parse(
-  //     req, 
+  //     req,
   //     async function (err, fields, files) {
 
   //         try {

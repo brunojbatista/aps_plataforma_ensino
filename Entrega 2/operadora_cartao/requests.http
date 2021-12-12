@@ -1,0 +1,9 @@
+POST http://localhost:3333/teste
+Content-Type: application/json
+
+{
+  "id": "123",
+  "price": {{$randomInt}},
+  "ts": {{$timestamp}}
+}
+###

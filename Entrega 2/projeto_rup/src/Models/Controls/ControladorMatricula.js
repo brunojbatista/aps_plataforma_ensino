@@ -9,7 +9,9 @@ const CadastroMatricula = require('../Collections/CadastroMatricula');
 const CadastroUsuario   = require('../Collections/CadastroUsuario');
 const CadastroCurso     = require('../Collections/CadastroCurso');
 const CadastroTransacao = require('../Collections/CadastroTransacao');
+const CadastroCartao    = require('../Collections/CadastroCartao');
 const GlobalUtils       = require('../../Utils/Global');
+const OperadoraFinanceiraFachada = require("../../Models/OperadoraFinanceira/OperadoraFinanceiraFachada");
 // const { response } = require('../../../app');
 
 const seconds = 3600;
@@ -30,6 +32,10 @@ class ControladorMatricula {
         this.CadastroTransacao = new CadastroTransacao(
             fabricaRepositorio.criarRepositorioTransacao()
         );
+        this.CadastroCartao = new CadastroCartao(
+            fabricaRepositorio.criarRepositorioCartao()
+        );
+        this.OperadoraFinanceiraFachada = new OperadoraFinanceiraFachada();
     }
 
     matricularCurso(
@@ -65,20 +71,21 @@ class ControladorMatricula {
 
                     if (await this.CadastroMatricula.hasMatricula(curso_id, aluno_id)) return reject("Aluno já está matriculado!");
 
-                    const matricula = await this.CadastroMatricula.inserirMatricula(
-                        curso_id,
-                        aluno_id
-                    );
-                    
-                    console.log(matricula.getMatricula())
+                    const curso = await this.CadastroCurso.getCurso(curso_id);
+
+                    console.log(curso.getCurso())
 
                     // -------------------------------------------------------------------
                     // -------------------------------------------------------------------
                     // Pagamento
 
-                    const transacao_id = GlobalUtils.makeID(32);
+                    const cartao = await this.CadastroCartao.getCartao(cartao_id, aluno_id);
 
-                    // Chamar a fachada de pagamento pra se comunicar
+                    await this.OperadoraFinanceiraFachada.checarCartao(cartao);
+
+                    const transacao_id = await this.OperadoraFinanceiraFachada.pagarCartao(cartao, curso.valor);
+
+                    console.log("transacao_id", transacao_id)
 
 
                     // -------------------------------------------------------------------
@@ -93,6 +100,13 @@ class ControladorMatricula {
                     // -------------------------------------------------------------------
                     // -------------------------------------------------------------------
                     // -------------------------------------------------------------------
+
+                    const matricula = await this.CadastroMatricula.inserirMatricula(
+                        curso_id,
+                        aluno_id
+                    );
+                    
+                    console.log(matricula.getMatricula())
 
                     resolve(matricula);
 

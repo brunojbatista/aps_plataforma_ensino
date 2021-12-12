@@ -1,24 +1,38 @@
-
+const Fachada       = require('../Fachada');
+const Formidable    = require('formidable');
 
 exports.get = (req, res, next) => {
     res.status(200).send('Requisição recebida com sucesso!');
 };
 
-exports.getById = (req, res, next) => {
-    let id = req.params.id;
-    res.status(200).send(`Requisição recebida com sucesso! user_id: ${id}`);
-};
+exports.matricularCurso = (req, res, next) => {
 
-exports.post = (req, res, next) => {
-    res.status(201).send('Requisição recebida com sucesso!' + JSON.stringify(req.body));
-};
+    var form = new Formidable.IncomingForm();
 
-exports.put = (req, res, next) => {
-    let id = req.params.id;
-    res.status(201).send(`Requisição recebida com sucesso! ${id}`);
-};
+    form.parse(
+        req, 
+        async function (err, fields, files) {
 
-exports.delete = (req, res, next) => {
-    let id = req.params.id;
-    res.status(200).send(`Requisição recebida com sucesso! ${id}`);
+            console.log(fields);
+
+            try {
+                var matricula = await Fachada.matricularCurso({
+                    ...fields,
+                    req
+                });
+                res.status(200).json({
+                    'code': 200,
+                    'msg': 'Matricula feita com sucesso!',
+                    'body': matricula.getMatricula()
+                });
+            } catch (e) {
+                res.status(400).json({
+                    'code': 400,
+                    'msg': e
+                });
+            }
+
+        }
+    );   
+
 };

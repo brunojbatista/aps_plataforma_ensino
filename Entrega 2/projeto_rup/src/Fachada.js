@@ -2,6 +2,7 @@ const FabricaRepositorioBDR    = require("./Models/Repositories/FabricaRepositor
 const ControladorUsuario    = require('./Models/Controls/ControladorUsuario');
 const ControladorCurso      = require('./Models/Controls/ControladorCurso');
 const ControladorCartao     = require('./Models/Controls/ControladorCartao');
+const ControladorMatricula     = require('./Models/Controls/ControladorMatricula');
 // const ControladorSessao     = require('../Models/ControladorSessao');
 // const ControladorCurso      = require('../Models/ControladorCurso');
 // const ControladorCartao     = require('../Models/ControladorCartao');
@@ -161,7 +162,23 @@ class Fachada {
 
     }
 
+    static async matricularCurso({
+        curso_id,
+        cartao_id,
+        req
+    }) {
 
+        var controladorMatricula = new ControladorMatricula(
+            new FabricaRepositorioBDR()
+        );
+
+        return await controladorMatricula.matricularCurso(
+            curso_id,
+            cartao_id,
+            req
+        );
+
+    }
 
 
 

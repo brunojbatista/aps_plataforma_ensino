@@ -30,14 +30,14 @@ class RepositorioCartaoBDR extends RepositorioCartaoInterface {
         });
     }
 
-    async inserirCartao(usuario_id) {
-        const [results] = await sequelize.query(`
-            SELECT *
-            FROM cartaos c
-            WHERE c.usuario_id = '${usuario_id}'
-        `);
-        return results;
-    }
+    // async inserirCartao(usuario_id) {
+    //     const [results] = await sequelize.query(`
+    //         SELECT *
+    //         FROM cartaos c
+    //         WHERE c.usuario_id = '${usuario_id}'
+    //     `);
+    //     return results;
+    // }
 
     async getCartao(cartao_id, usuario_id) {
         const [results] = await sequelize.query(`

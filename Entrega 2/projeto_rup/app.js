@@ -8,6 +8,7 @@ var viewRouter = require('./routes/views');
 var usuariosRouter = require('./routes/usuarios');
 var cursosRouter = require('./routes/cursos');
 var cartoesRouter = require('./routes/cartoes');
+var matriculasRouter = require('./routes/matriculas');
 var testeRouter = require('./routes/test');
 const requestIp = require("request-ip");
 
@@ -66,6 +67,7 @@ app.use('/testes', testeRouter);
 app.use('/usuarios', usuariosRouter);
 app.use('/cursos', cursosRouter);
 app.use('/cartoes', cartoesRouter);
+app.use('/matriculas', matriculasRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

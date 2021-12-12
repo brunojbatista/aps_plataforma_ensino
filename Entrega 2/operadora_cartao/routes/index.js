@@ -1,45 +1,55 @@
 var express = require('express');
 const Formidable    = require('formidable');
 var router = express.Router();
+const GlobalUtil = require('../src/Utils/Global');
+
+router.post('/cartao/check', async function(req, res, next) {
+
+    await GlobalUtil.sleep(2);
+ 
+    res.set('Content-Type', 'application/json');
+
+    res.status(200).json({
+        'code': 200,
+        'msg': 'Cartão válido'
+    });
+
+    // res.status(200).json({
+    //     'code': 400,
+    //     'msg': 'Cartão inválido'
+    // });
+
+});
+
+router.post('/cartao/payment', async function(req, res, next) {
+
+    await GlobalUtil.sleep(2);
+
+    res.set('Content-Type', 'application/json');
+
+    res.status(200).json({
+        'code': 200,
+        'msg': 'Pagamento realizado com sucesso',
+        'body': {
+            'transacao_id': GlobalUtil.makeID(32)
+        }
+    });
+
+    // res.status(200).json({
+    //     'code': 400,
+    //     'msg': 'Limite insuficiente'
+    // });
+
+});
 
 router.post('/teste', function(req, res, next) {
-    
-  // console.log("teste...................");
 
-  res.set('Content-Type', 'text/html');
+    res.set('Content-Type', 'application/json');
 
-  console.log(req.body)
-
-  res.send('respond with a resource');
-
-  // res.status(200).json({
-  //     'code': 200,
-  //     'msg': 'Débito liberado'
-  // });
-
-  // var form = new Formidable.IncomingForm();
-
-  // form.parse(
-  //     req,
-  //     async function (err, fields, files) {
-
-  //         try {
-  //             var usuario = await Fachada.cadastrarUsuario(
-  //                 fields
-  //             );
-  //             res.status(200).json({
-  //                 'code': 200,
-  //                 'msg': 'Usuário cadastrado com sucesso!'
-  //             });
-  //         } catch (e) {
-  //             res.status(400).json({
-  //                 'code': 400,
-  //                 'msg': e
-  //             });
-  //         }
-
-  //     }
-  // );   
+    res.status(200).json({
+        'code': 200,
+        'msg': `Pagamento efetuado com sucesso`
+    });
 
 });
 

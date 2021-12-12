@@ -1,5 +1,6 @@
 // const OperadoraFinanceiraInterface = require("./OperadoraFinanceiraInterface")
 const GlobalUtils     = require('../../../src/Utils/Global');
+const axios = require('axios');
 
 
 class ControladorOperadoraFinanceira {
@@ -10,19 +11,32 @@ class ControladorOperadoraFinanceira {
 
                 // Alguma lógica com a operadora financeira
 
-                await GlobalUtils.sleep(2);
+                axios.post('http://localhost:3333/cartao/check', {
+                    "cartao_id": cartao.id
+                }).then(response => {
+                    // console.log(`statusCode: ${response.status}`)
+                    // console.log(response.data)
+                    resolve(response.data)
+                }).catch(error => {
+                    console.error(error)
+                    reject(error);
+                })
 
-                const response = {
-                    "code": 200,
-                    "msg": "Cartão válido"
-                };
+                // await GlobalUtils.sleep(2);
+
+
+
+                // const response = {
+                //     "code": 200,
+                //     "msg": "Cartão válido"
+                // };
 
                 // const response = {
                 //     "code": 400,
                 //     "msg": "Cartão inválido"
                 // };
 
-                resolve(response);
+                // resolve(response);
 
             }
         );
@@ -34,22 +48,40 @@ class ControladorOperadoraFinanceira {
 
                 // Alguma lógica com a operadora financeira
 
-                await GlobalUtils.sleep(5);
+                axios.post('http://localhost:3333/cartao/payment', {
+                    "cartao_id": cartao.id,
+                    "valor": valor
+                }).then(response => {
+                    console.log(`statusCode: ${response.status}`)
+                    console.log(response.data)
+                    resolve(response.data)
+                }).catch(error => {
+                    console.error(error)
+                    reject(error);
+                })
 
-                const response = {
-                    'code': 200,
-                    'msg': 'Pagamento realizado com sucesso',
-                    'body': {
-                        'transacao_id': GlobalUtils.makeID(32)
-                    }
-                };
+                // await GlobalUtils.sleep(5);
+
+                // const response = {
+                //     'code': 200,
+                //     'msg': 'Pagamento realizado com sucesso',
+                //     'body': {
+                //         'transacao_id': GlobalUtils.makeID(32)
+                //     }
+                // };
 
                 // const response = {
                 //     'code': 400,
                 //     'msg': 'Saldo insuficiente'
                 // };
 
-                resolve(response);
+                // resolve({
+                //     'code': 200,
+                //     'msg': 'Pagamento realizado com sucesso',
+                //     'body': {
+                //         'transacao_id': GlobalUtils.makeID(32)
+                //     }
+                // });
 
             }
         );

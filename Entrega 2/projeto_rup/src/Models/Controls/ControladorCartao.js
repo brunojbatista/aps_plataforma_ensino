@@ -40,8 +40,13 @@ class ControladorCartao {
                         bandeira,
                         usuario.id
                     );
+
+                    resolve(true);
+
+
                     
-                    resolve(cartao);
+                    
+                    // resolve(cartao);
 
                 } catch (e) { reject(e); }
 

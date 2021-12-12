@@ -34,10 +34,10 @@ exports.cadastrarCartao = async (req, res, next) => {
                 res.status(200).json({
                     'code': 200,
                     'msg': 'Cartao adicionado com sucesso!',
-                    'body': {
-                        'numero': cartao.numero,
-                        'bandeira': cartao.bandeira,
-                    }
+                    // 'body': {
+                    //     'numero': cartao.numero,
+                    //     'bandeira': cartao.bandeira,
+                    // }
                 });
             } catch (e) {
                 res.status(400).json({

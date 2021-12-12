@@ -29,7 +29,7 @@ class CadastroCurso {
     }
 
     async hasCurso(curso_id) {
-        return new Curso(await this.RepositorioCurso.hasCurso(curso_id));
+        return await this.RepositorioCurso.hasCurso(curso_id);
     }
 
     async getCurso(curso_id) {

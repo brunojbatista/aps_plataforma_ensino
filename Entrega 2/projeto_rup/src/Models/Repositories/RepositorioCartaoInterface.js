@@ -12,7 +12,7 @@ class RepositorioCartaoInterface {
 
     hasNumero(numero) {}
 
-    inserirCartao(usuario_id) {}
+    // inserirCartao(usuario_id) {}
 
     getCartao(cartao_id, usuario_id) {}
 

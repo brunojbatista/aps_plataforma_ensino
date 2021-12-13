@@ -24,6 +24,7 @@ class Usuario {
         this.cartoes = [];
         this.cursos = [];
         this.transacoes = [];
+        this.sessao = null;
     }
 
     getUsuario() {
@@ -58,6 +59,10 @@ class Usuario {
 
     setTransacoes(CadastroTransacao) {
         this.transacoes = [];
+    }
+
+    setSessao(CadastroSessao) {
+        this.sessao = null;
     }
 
     // set id(id) {

@@ -1,5 +1,7 @@
-const Fachada       = require('../Fachada');
+const FachadaClass   = require('../Fachada');
 const Formidable    = require('formidable');
+
+const Fachada = new FachadaClass();
 
 exports.get = (req, res, next) => {
     res.status(200).send('Requisição recebida com sucesso!');

@@ -1,6 +1,7 @@
-const Fachada           = require('../Fachada');
-// const { IncomingForm }  = require('formidable');
+const FachadaClass   = require('../Fachada');
 const Formidable    = require('formidable');
+
+const Fachada = new FachadaClass();
 
 exports.cadastrarCartao = async (req, res, next) => {
 

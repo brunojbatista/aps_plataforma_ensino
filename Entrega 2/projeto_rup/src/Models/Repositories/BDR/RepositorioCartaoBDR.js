@@ -49,6 +49,16 @@ class RepositorioCartaoBDR extends RepositorioCartaoInterface {
         return results[0];
     }
 
+    async listarCartoes(usuario_id) {
+        const [results] = await sequelize.query(`
+            SELECT *
+            FROM cartaos c
+            WHERE c.usuario_id = '${usuario_id}'
+        `);
+        if (results.length <= 0) throw "Não há cartão";
+        return results;
+    }
+
 }
 
 module.exports = RepositorioCartaoBDR;

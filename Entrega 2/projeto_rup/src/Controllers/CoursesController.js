@@ -1,5 +1,7 @@
-const Fachada           = require('../Fachada');
+const FachadaClass   = require('../Fachada');
 const Formidable    = require('formidable');
+
+const Fachada = new FachadaClass();
 
 exports.cadastrarCurso = (req, res, next) => {
 
@@ -19,6 +21,7 @@ exports.cadastrarCurso = (req, res, next) => {
                 res.status(200).json({
                     'code': 200,
                     'msg': 'Curso criado com sucesso!',
+                    'body': curso
                 });
             } catch (e) {
                 res.status(400).json({

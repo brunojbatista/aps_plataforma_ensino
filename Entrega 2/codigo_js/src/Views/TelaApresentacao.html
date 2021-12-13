@@ -26,13 +26,19 @@
             window.location = "/TelaInicial";   
         }
         function listarCursos(){
-          axios.get("cursos/listar").then(res => {
+          var url = window.location.pathname;
+          var id = url.substring(url.lastIndexOf('/') + 1);
+          axios.get("cursos/" + id).then(res => {
             let cursos = res.data.body;
-            
+            console.log(cursos + "aa");
             
           });
 
         }
+        document.addEventListener('DOMContentLoaded', function() {
+          listarCursos();
+        }, false);
       </script>
+      <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </body>
 </html>

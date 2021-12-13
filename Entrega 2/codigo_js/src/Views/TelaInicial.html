@@ -13,7 +13,8 @@
             <span class="material-icons">Dashboard</span>
             <div class="bar-blue">
                 <button class="flex-item" onclick="openTab('Todos')">Todos os Cursos</button>
-                <button class="flex-item" onclick="openTab('Meus')">Meus Cursos</button> 
+                <button class="flex-item" onclick="openTab('Meus')">Meus Cursos</button>
+                <button id="area-professor" class="flex-item" onclick="openTab('Criados')">Área do Professor</button> 
             </div>
             <div id="Todos" class="w3-container tab" style="display: none;">
                 <h2>Todos os Cursos</h2>
@@ -28,7 +29,7 @@
                 </table>
             </div>
             <div id="Meus" class="w3-container tab" style="display: none;">
-                <h2>Meus Cursos</h2>
+                <h2>Todos os Cursos Que eu Comprei</h2>
                 <table style="width: 500px;">
                     <tr>
                         <th>Curso</th>
@@ -36,19 +37,41 @@
                         <th>Ver Mais</th>
                     </tr>
                     <tr>
-                        <td>Modern JavaScript From The Beginning</td>
-                        <td>Bruno Jorge Nogueira Batista</td>
-                        <td><a href="">Acessar Aulas</a></td>
+                        <td></td>
+                        <td></td>
+                        <td><!-- <a href="">Acessar Aulas</a> !--></td>
+                    </tr>
+                </table>
+            </div> 
+            <div id="Criados" class="w3-container tab" style="display: none;">
+                <h2>Todos os Cursos Criados Por Mim</h2>
+                <table style="width: 500px;">
+                    <tr>
+                        <th>Curso</th>
+                        <th>Professor</th>
+                        <th>Ver Mais</th>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td><!-- <a href="">Acessar Aulas</a> !--></td>
                     </tr>
                 </table>
             </div> 
             <div class="container-row">
                 <button class="btn-wd" onclick="sair()">Sair</button>
-                <button class="btn-wd" onclick="listarCursos()">Listar Cursos</button>
+                <button id="cadastrar-curso" style="display: none" class="btn-wd" onclick="redirecionarCadastroCurso()">Cadastrar Curso</button>
+                <button id="cursos-todos" class="btn-wd"  onclick="listarCursos()">Listar Todos Cursos</button>
+                <button id="cursos-comprados" class="btn-wd"  style="display: none;">Listar Cursos Comprados</button>
+                <button id="cursos-criados" class="btn-wd"  style="display: none;">Listar Cursos Criados</button>
             </div>
         </div>
       </div>
     <script>
+        function redirecionarCadastroCurso(){
+            window.location = "/CadastroCurso";   
+        }
+
         function sair(){
             window.location = "/";   
         }
@@ -60,6 +83,23 @@
             x[i].style.display = "none";  
           }
           document.getElementById(tab).style.display = "block";  
+          
+          if(tab == "Criados"){
+            document.getElementById("cadastrar-curso").style.display = "block";
+            document.getElementById("cursos-criados").style.display = "block";
+            document.getElementById("cursos-todos").style.display = "none";
+            document.getElementById("cursos-comprados").style.display = "none";
+          } else if (tab == "Meus") {
+            document.getElementById("cursos-comprados").style.display = "block";
+            document.getElementById("cadastrar-curso").style.display = "none";
+            document.getElementById("cursos-todos").style.display = "none";
+            document.getElementById("cursos-criados").style.display = "none";
+          } else if (tab = "Todos"){
+            document.getElementById("cursos-comprados").style.display = "none";
+            document.getElementById("cursos-criados").style.display = "none";
+            document.getElementById("cursos-todos").style.display = "block";
+          }
+          
         }
 
         function listarCursos(){

@@ -12,7 +12,23 @@ const ControladorMatricula     = require('./Models/Controls/ControladorMatricula
 
 class Fachada {
 
-    static async cadastrarUsuario({
+    constructor() {
+        var repositorio = new FabricaRepositorioBDR();
+        this.controladorUsuario = new ControladorUsuario(
+            repositorio
+        );
+        this.controladorCurso = new ControladorCurso(
+            repositorio
+        );
+        this.controladorCartao = new ControladorCartao(
+            repositorio
+        );
+        this.controladorMatricula = new ControladorMatricula(
+            repositorio
+        );
+    }
+
+    async cadastrarUsuario({
         cpf,
         nome,
         login,
@@ -21,11 +37,7 @@ class Fachada {
         telefone
     }) {
 
-        var controladorUsuario = new ControladorUsuario(
-            new FabricaRepositorioBDR()
-        );
-
-        return await controladorUsuario.cadastrarUsuario(
+        return await this.controladorUsuario.cadastrarUsuario(
             cpf,
             nome,
             login,
@@ -36,18 +48,14 @@ class Fachada {
 
     }
 
-    static async autenticar({
+    async autenticar({
         login,
         senha,
         res,
         req
     }) {
 
-        var controladorUsuario = new ControladorUsuario(
-            new FabricaRepositorioBDR()
-        );
-
-        return await controladorUsuario.autenticar(
+        return await this.controladorUsuario.autenticar(
             login,
             senha,
             res,
@@ -56,18 +64,14 @@ class Fachada {
 
     }
 
-    static async criarCurso({
+    async criarCurso({
         nome,
         descricao,
         valor,
         req
     }) {
-
-        var controladorCurso = new ControladorCurso(
-            new FabricaRepositorioBDR()
-        );
         
-        return await controladorCurso.criarCurso(
+        return await this.controladorCurso.criarCurso(
             nome,
             descricao,
             valor,
@@ -76,55 +80,39 @@ class Fachada {
 
     }
 
-    static async listarCursos () {
+    async listarCursos () {
 
-        var controladorCurso = new ControladorCurso(
-            new FabricaRepositorioBDR()
-        );
-
-        return await controladorCurso.listarCursos();
+        return await this.controladorCurso.listarCursos();
 
     }
 
-    static async getCurso({
+    async getCurso({
         id
     }) {
-
-        var controladorCurso = new ControladorCurso(
-            new FabricaRepositorioBDR()
-        );
         
-        return await controladorCurso.getCurso(
+        return await this.controladorCurso.getCurso(
             id
         );
 
     }
 
-    static async cursosByProfessor({
+    async cursosByProfessor({
         req
     }) {
-
-        var controladorCurso = new ControladorCurso(
-            new FabricaRepositorioBDR()
-        );
         
-        return await controladorCurso.cursosByProfessor(
+        return await this.controladorCurso.cursosByProfessor(
             req
         );
 
     }
 
-    static async cadastrarCartao({
+    async cadastrarCartao({
         numero,
         bandeira,
         req
     }) {
 
-        var controladorCartao = new ControladorCartao(
-            new FabricaRepositorioBDR()
-        );
-
-        return await controladorCartao.cadastrarCartao(
+        return await this.controladorCartao.cadastrarCartao(
             numero,
             bandeira,
             req
@@ -132,165 +120,41 @@ class Fachada {
 
     }
 
-    static async listarCartoes({
+    async listarCartoes({
         req
     }) {
 
-        var controladorCartao = new ControladorCartao(
-            new FabricaRepositorioBDR()
-        );
-
-        return await controladorCartao.listarCartoes(
+        return await this.controladorCartao.listarCartoes(
             req
         );
 
     }
 
-    static async getCartao({
+    async getCartao({
         cartao_id,
         req
     }) {
 
-        var controladorCartao = new ControladorCartao(
-            new FabricaRepositorioBDR()
-        );
-
-        return await controladorCartao.getCartao(
+        return await this.controladorCartao.getCartao(
             cartao_id,
             req
         );
 
     }
 
-    static async matricularCurso({
+    async matricularCurso({
         curso_id,
         cartao_id,
         req
     }) {
 
-        var controladorMatricula = new ControladorMatricula(
-            new FabricaRepositorioBDR()
-        );
-
-        return await controladorMatricula.matricularCurso(
+        return await this.controladorMatricula.matricularCurso(
             curso_id,
             cartao_id,
             req
         );
 
     }
-
-
-
-
-
-    // ------------------------------------------------------------------------------------------------------------------------
-    // ------------------------------------------------------------------------------------------------------------------------
-    // ------------------------------------------------------------------------------------------------------------------------
-
-    static async testarMatricula({
-        curso_id,
-        req
-    }) {
-
-        // return new Promise(
-        //     async (resolve, reject) => {
-
-        //         try {
-
-        //             var controladorSessao = new ControladorSessao();
-
-        //             var controladorMatricula = new ControladorMatricula();
-
-        //             controladorSessao.checarSessao(req);
-
-        //             const usuario = await controladorSessao.getSessaoUsuario(req);
-
-        //             const usuario_id = usuario.id;
-
-        //             console.log("criar curso usuario", usuario);
-                    
-        //             await controladorMatricula.inserirMatricula(
-        //                 curso_id,
-        //                 usuario.id
-        //             );
-
-        //             resolve(true);
-
-        //         } catch (e) {
-        //             reject(e);
-        //         }
-
-        //     }
-        // );
-
-    }
-
-    static async testarCursosMatriculados({
-        req
-    }) {
-
-        // return new Promise(
-        //     async (resolve, reject) => {
-
-        //         try {
-
-        //             var controladorSessao = new ControladorSessao();
-
-        //             var controladorMatricula = new ControladorMatricula();
-
-        //             controladorSessao.checarSessao(req);
-
-        //             const usuario = await controladorSessao.getSessaoUsuario(req);
-
-        //             const usuario_id = usuario.id;
-
-        //             console.log("criar curso usuario", usuario);
-                    
-        //             const cursos = await controladorMatricula.getCursosMatriculados(
-        //                 usuario.id
-        //             );
-
-        //             resolve(cursos);
-
-        //         } catch (e) {
-        //             reject(e);
-        //         }
-
-        //     }
-        // );
-
-    }
-
-
-    // static fazerLogin(
-    //     login,
-    //     senha
-    // ) {
-
-    // }
-
-    // static checarAutenticacao(
-    //     usuario_id
-    // ) {
-
-    // }
-
-    // static comprarCurso(
-    //     curso_id,
-    //     usuario_id
-    // ) {
-
-    // }
-
-    // static cadastrarCurso(
-    //     usuario_id,
-    //     nome,
-    //     descricao,
-    //     preco
-    // ) {
-
-    // }
 
 }
 

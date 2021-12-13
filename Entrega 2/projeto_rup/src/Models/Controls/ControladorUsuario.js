@@ -1,4 +1,5 @@
 const CadastroUsuario   = require('../Collections/CadastroUsuario');
+const CadastroSessao    = require('../Collections/CadastroSessao');
 const md5           = require('md5');
 const GlobalUtils     = require('../../Utils/Global');
 
@@ -10,6 +11,9 @@ class ControladorUsuario {
     constructor(fabricaRepositorio) {
         this.CadastroUsuario = new CadastroUsuario(
             fabricaRepositorio.criarRepositorioUsuario()
+        );
+        this.CadastroSessao = new CadastroSessao(
+            fabricaRepositorio.criarRepositorioSessao()
         );
     }
 
@@ -64,24 +68,24 @@ class ControladorUsuario {
 
                     var session_hash;
 
+                    var usuario = await this.CadastroUsuario.getByLogin(login);
+
+                    if (usuario.senha !== senha) return reject("Login/Senha incorreto(s)");
+
                     while (true) {
                         session_hash = md5(Date.now());
                         try {
-                            await this.CadastroUsuario.getBySession(session_hash);
+                            await this.CadastroSessao.getSession(session_hash);
                         } catch (e) {
                             break;                            
                         }
                     }
 
-                    // const { logged } = GlobalUtils.parseCookie(req);
+                    const sessao = await this.CadastroSessao.inserirSessao(usuario.id, session_hash);
 
-                    var usuario = await this.CadastroUsuario.getByLogin(login);
+                    usuario = await this.CadastroUsuario.atualizarSessionHash(usuario.id, sessao.session_hash);
 
-                    if (usuario.senha !== senha) return reject("Login/Senha incorreto(s)");
-
-                    usuario = await this.CadastroUsuario.atualizarSessionHash(usuario.id, session_hash);
-
-                    res.cookie('logged', session_hash, {maxAge: seconds*1000});
+                    res.cookie('logged', sessao.session_hash, {maxAge: seconds*1000});
 
                     resolve(usuario);
 

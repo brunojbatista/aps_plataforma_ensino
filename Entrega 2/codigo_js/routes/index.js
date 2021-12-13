@@ -38,12 +38,14 @@ router.get('/CadastroCurso', function(req, res, next) {
   res.sendFile(GlobalUtils.getHTMLFile('CadastroCurso'));
 });
 
-router.get('/TelaLogin', function(req, res, next) {
+router.get('/TelaApresentacao/:id', function(req, res, next) {
 
   res.set('Content-Type', 'text/html');
 
-  res.sendFile(GlobalUtils.getHTMLFile('TelaLogin'));
+  res.sendFile(GlobalUtils.getHTMLFile('TelaApresentacao'));
 });
+
+
 
 // const Sessao     = require('../src/Models/Sessao');
 

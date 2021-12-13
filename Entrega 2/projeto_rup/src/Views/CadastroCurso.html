@@ -4,19 +4,27 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>Cadastro Curso</title>
 </head>
 <body>
-    <div class="login">
+    <div class="container">
         <div class="form">
             <span class="material-icons">Cadastro Curso</span>
             <input id="nome" type="text" placeholder="Nome" required/>
             <input id="valor" type="text" placeholder="Valor" required/>
-            <textarea id="descricao" type="text" placeholder="Descrição" name="" id="" cols="30" rows="10" required></textarea>
-            <button onclick="cadastrarCurso()">Cadastrar Curso</button>
+            <textarea id="descricao" type="text" placeholder="Descrição" name="" id="" cols="45" rows="10" required></textarea>
+            <div class="container-row">
+              <button class="btn-wd wd-0" onclick="voltarDashboard()">Voltar para Dashboard</button>
+              <button class="btn-wd wd-0" onclick="cadastrarCurso()">Cadastrar Curso</button>
+            </div>
+            
         </div>
       </div>
       <script>
+        function voltarDashboard(){
+          window.location = "/TelaInicial";
+        }
         function cadastrarCurso(){
           const formData = new FormData();
 
@@ -28,80 +36,17 @@
           formData.append("valor", valor);
           formData.append("descricao", descricao);
 
-          axios.post("cursos/criarCurso", formData).then(res => {
+          axios.post("cursos/cadastro", formData).then(res => {
             console.log(res);
             console.log(res.data);
+            if(res.status == 200){
+              alert("Curso Cadastrado Com Sucesso!")
+            } 
+          }).catch((error) => {
+            alert("Dados Incorretos");
           });
         }
       </script>
       <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </body>
-<style>
-    @import url('https://fonts.googleapis.com/css2?family=Comfortaa&display=swap');
-
-    body {
-      background: linear-gradient(90deg, #4b6cb7 0%, #182848 100%);
-    }
-
-    .login {
-      width: 360px;
-      padding: 8% 0 0;
-      margin: auto;
-      font-family: 'Comfortaa', cursive;
-    }
-
-    .form {
-      position: relative;
-      z-index: 1;
-      background: #FFFFFF;
-      border-radius: 10px;
-      max-width: 360px;
-      margin: 0 auto 100px;
-      padding: 45px;
-      text-align: center;
-    }
-
-    .form input, textarea {
-      outline: 0;
-      background: #f2f2f2;
-      width: 100%;
-      border: 0;
-      border-radius: 5px;
-      margin: 0 0 15px;
-      padding: 15px;
-      box-sizing: border-box;
-      font-size: 14px;
-      font-family: 'Comfortaa', cursive;
-    }
-
-    .form input:focus {
-      background: #dbdbdb;
-    }
-
-    .form button {
-      font-family: 'Comfortaa', cursive;
-      text-transform: uppercase;
-      outline: 0;
-      background: #4b6cb7;
-      width: 100%;
-      border: 0;
-      border-radius: 5px;
-      padding: 15px;
-      color: #FFFFFF;
-      font-size: 14px;
-      -webkit-transition: all 0.3 ease;
-      transition: all 0.3 ease;
-      cursor: pointer;
-    }
-
-    .form button:active {
-      background: #395591;
-    }
-
-    .form span {
-      font-size: 50px;
-      color: #4b6cb7;
-    }
-
-  </style>
 </html>

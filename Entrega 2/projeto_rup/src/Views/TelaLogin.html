@@ -32,13 +32,13 @@
           formData.append("login", login);
           formData.append("senha", senha);
 
-          axios.post("https://localhost:3001/usuarios/autenticar", formData).then(res => {
-            if(res.status == 200){
+          axios.post("http://localhost:3001/usuarios/autenticar", formData).then(res => {
+            if(res.status === 200){
               window.location = "/TelaInicial";
             } 
           }).catch((error) => {
-              console.log(error)
-            alert("Dados Incorretos");
+              console.error(error)
+              alert("Dados Incorretos");
           })
         }
       </script>

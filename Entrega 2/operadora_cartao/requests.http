@@ -1,9 +1,11 @@
-POST http://localhost:3333/teste
+POST http://localhost:3000/usuarios/cadastro
 Content-Type: application/json
 
 {
-  "id": "123",
-  "price": {{$randomInt}},
-  "ts": {{$timestamp}}
+  "id": 1,
+  "nome": "Victor",
+  "login": "vmm",
+  "email": "vmm@cin.ufpe.br",
+  "senha": "123"
 }
 ###

@@ -38,24 +38,24 @@ class RepositorioUsuarioBDR extends RepositorioUsuarioInterface {
     }
 
     async getBySession(session_hash) {
-        const [results] = await sequelize.query(`SELECT * FROM usuarios WHERE session_hash = '${session_hash}'`);
+        const [results] = await sequelize.query(`SELECT * FROM Usuarios WHERE session_hash = '${session_hash}'`);
         if (results.length <= 0) throw "Sessão inexistente"; 
         return results[0];
     }
 
     async getByLogin(login) {
-        const [results] = await sequelize.query(`SELECT * FROM usuarios WHERE login = '${login}'`);
+        const [results] = await sequelize.query(`SELECT * FROM Usuarios WHERE login = '${login}'`);
         if (results.length <= 0) throw "Login/Senha incorreto(s)"; 
         return results[0];
     }
 
     async hasUsuarioByCPF(cpf) {
-        var [results] = await sequelize.query(`SELECT id FROM usuarios WHERE cpf = '${cpf}'`);
+        var [results] = await sequelize.query(`SELECT id FROM Usuarios WHERE cpf = '${cpf}'`);
         return results.length > 0;
     }
 
     async hasUsuarioByLogin(login) {
-        var [results] = await sequelize.query(`SELECT id FROM usuarios WHERE login = '${login}'`);
+        var [results] = await sequelize.query(`SELECT id FROM Usuarios WHERE login = '${login}'`);
         return results.length > 0;
     }
 

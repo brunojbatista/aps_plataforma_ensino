@@ -38,9 +38,10 @@
           formData.append("email", email);
           formData.append("telefone", telefone);
 
-          axios.post("usuarios/cadastro", formData).then(res => {
-            console.log(res);
-            console.log(res.data);
+          axios.post("http://localhost:3001/usuarios/cadastro", formData).then(res => {
+                alert(`${res?.data?.msg|| 'Usuário cadastrado com sucesso'} `)
+          }).catch((error) => {
+              alert(`Erro: ${error?.response?.data?.msg || 'Ocorreu um erro ao cadastrar o usuário'}` )
           });
         }
       </script>

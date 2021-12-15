@@ -2,6 +2,7 @@ const Fachada           = require('../Fachada');
 const Formidable    = require('formidable');
 
 exports.cadastrarUsuario = (req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
 
     // var fabrica = new FabricaRepositorioBDR();
 
@@ -36,6 +37,7 @@ exports.cadastrarUsuario = (req, res, next) => {
 }
 
 exports.autenticar = (req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
 
     var params = {
         res,

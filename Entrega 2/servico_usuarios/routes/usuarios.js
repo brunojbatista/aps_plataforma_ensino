@@ -14,5 +14,4 @@ router.post('/cadastro', UsersController.cadastrarUsuario);
 
 router.post('/autenticar', UsersController.autenticar);
 
-
 module.exports = router;

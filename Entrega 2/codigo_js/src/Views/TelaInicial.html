@@ -4,35 +4,32 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>Dashboard</title>
 </head>
 <body>
-    <div class="login">
-        <div class="form">
+    <div class="container">
+        <div class="form wd-100">
             <span class="material-icons">Dashboard</span>
             <div class="bar-blue">
-                <button class="tabs-style" onclick="openTab('Todos')">Todos os Cursos</button>
-                <!-- <button class="tabs-style" onclick="openTab('Meus')">Meus Cursos</button> -->
+                <button class="flex-item" onclick="openTab('Todos')">Todos os Cursos</button>
+                <button class="flex-item" onclick="openTab('Meus')">Meus Cursos</button>
+                <button id="area-professor" class="flex-item" onclick="openTab('Criados')">Área do Professor</button> 
             </div>
             <div id="Todos" class="w3-container tab" style="display: none;">
                 <h2>Todos os Cursos</h2>
-                <table style="width: 500px;">
+                <table style="width: 100%" id="tabela">
                     <tr>
                         <th>Nome</th>
-                        <th>Preço</th>
-                        <th>Descricao</th>
-                        <!-- <th>Ver Mais</th> -->
+                        <th>Preço (R$)</th>
+                        <th>Descrição</th>
+                        <th>Comprar Curso</th> 
                     </tr>
-                    <tr id="primeira">
-                        <td id="nome">-</td>
-                        <td id="valor">-</td>
-                        <td id="descricao">-</td>
-                        <!--  <td><a href="">Explorar Mais</a></td> -->
-                    </tr>
+                    
                 </table>
             </div>
-           <!-- <div id="Meus" class="w3-container tab" style="display: none;">
-                <h2>Meus Cursos</h2>
+            <div id="Meus" class="w3-container tab" style="display: none;">
+                <h2>Todos os Cursos Que eu Comprei</h2>
                 <table style="width: 500px;">
                     <tr>
                         <th>Curso</th>
@@ -40,16 +37,45 @@
                         <th>Ver Mais</th>
                     </tr>
                     <tr>
-                        <td>Modern JavaScript From The Beginning</td>
-                        <td>Bruno Jorge Nogueira Batista</td>
-                        <td><a href="">Acessar Aulas</a></td>
+                        <td></td>
+                        <td></td>
+                        <td><!-- <a href="">Acessar Aulas</a> !--></td>
                     </tr>
                 </table>
-            </div> --> 
-            <button onclick="listarCursos()">Listar Cursos</button>
+            </div> 
+            <div id="Criados" class="w3-container tab" style="display: none;">
+                <h2>Todos os Cursos Criados Por Mim</h2>
+                <table style="width: 500px;">
+                    <tr>
+                        <th>Curso</th>
+                        <th>Professor</th>
+                        <th>Ver Mais</th>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td><!-- <a href="">Acessar Aulas</a> !--></td>
+                    </tr>
+                </table>
+            </div> 
+            <div class="container-row">
+                <button class="btn-wd" onclick="sair()">Sair</button>
+                <button id="cadastrar-curso" style="display: none" class="btn-wd" onclick="redirecionarCadastroCurso()">Cadastrar Curso</button>
+                <button id="cursos-todos" class="btn-wd"  onclick="listarCursos()">Listar Todos Cursos</button>
+                <button id="cursos-comprados" class="btn-wd"  style="display: none;">Listar Cursos Comprados</button>
+                <button id="cursos-criados" class="btn-wd"  style="display: none;">Listar Cursos Criados</button>
+            </div>
         </div>
       </div>
     <script>
+        function redirecionarCadastroCurso(){
+            window.location = "/CadastroCurso";   
+        }
+
+        function sair(){
+            window.location = "/";   
+        }
+
         function openTab(tab) {
           var i;
           var x = document.getElementsByClassName("tab");
@@ -57,110 +83,66 @@
             x[i].style.display = "none";  
           }
           document.getElementById(tab).style.display = "block";  
+          
+          if(tab == "Criados"){
+            document.getElementById("cadastrar-curso").style.display = "block";
+            document.getElementById("cursos-criados").style.display = "block";
+            document.getElementById("cursos-todos").style.display = "none";
+            document.getElementById("cursos-comprados").style.display = "none";
+          } else if (tab == "Meus") {
+            document.getElementById("cursos-comprados").style.display = "block";
+            document.getElementById("cadastrar-curso").style.display = "none";
+            document.getElementById("cursos-todos").style.display = "none";
+            document.getElementById("cursos-criados").style.display = "none";
+          } else if (tab = "Todos"){
+            document.getElementById("cursos-comprados").style.display = "none";
+            document.getElementById("cursos-criados").style.display = "none";
+            document.getElementById("cursos-todos").style.display = "block";
+          }
+          
         }
 
         function listarCursos(){
-          axios.get("cursos/listarCursos").then(res => {
-            console.log(res);
-            console.log(res.data);
-            console.log(res.data.body);
+          axios.get("cursos/listar").then(res => {
             let cursos = res.data.body;
-            console.log(cursos[0]);
-            console.log(cursos[0].nome);
-            console.log(cursos[0].valor);
-            console.log(cursos[0].descricao);
+            let i = 0;
+            let trNome
 
-            var td = document.createElement("td");
+            cursos.map(function (curso){
+                
+                var tr = document.createElement("tr");
+                trNome = "tr-curso" + i;
+                tr.id = trNome;
+                var td_nome = document.createElement("td");
+                var td_valor = document.createElement("td");
+                var td_descricao = document.createElement("td");
+                var td_mais = document.createElement("td");
+                tdNome = "td-curso" + i
+                td_mais.id = tdNome;
+                var a_mais = document.createElement("a");
+               
 
-            document.getElementById("nome").innerHTML  = cursos[0].nome;
-            document.getElementById("valor").innerHTML  = cursos[0].valor;
-            document.getElementById("descricao").innerHTML  = cursos[0].descricao;
+
+                td_nome.innerHTML = curso.curso_nome;
+                td_valor.innerHTML = curso.curso_valor;
+                td_descricao.innerHTML = curso.curso_descricao;
+                a_mais.innerHTML = "Comprar";
+
+                a_mais.href = "/TelaApresentacao" + "/id=" + curso.curso_id;
+
+                document.querySelector("#tabela").appendChild(tr);
+                document.querySelector("#" + trNome).appendChild(td_nome);
+                document.querySelector("#" + trNome).appendChild(td_valor);
+                document.querySelector("#" + trNome).appendChild(td_descricao);
+                document.querySelector("#" + trNome).appendChild(td_mais);
+                document.querySelector("#" + tdNome).appendChild(a_mais);
+
+                i++;
+            });
           });
-          
 
         }
      </script>
      <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </body>
-<style>
-    @import url('https://fonts.googleapis.com/css2?family=Comfortaa&display=swap');
-    
-    html{
-        height: 100%;
-    }
-
-    body {
-      background: linear-gradient(90deg, #4b6cb7 0%, #182848 100%);
-      height: 100%;
-    }
-
-    .login {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 100%;
-      height: 100%;
-      font-family: 'Comfortaa', cursive;
-    }
-
-    .form {
-      position: relative;
-      z-index: 1;
-      background: #FFFFFF;
-      border-radius: 10px;
-      max-width: 600px;
-      margin: 0 auto 100px;
-      padding: 45px;
-      text-align: center;
-    }
-
-    .form input {
-      outline: 0;
-      background: #f2f2f2;
-      width: 100%;
-      border: 0;
-      border-radius: 5px;
-      padding: 15px;
-      box-sizing: border-box;
-      font-size: 14px;
-      font-family: 'Comfortaa', cursive;
-    }
-
-    .form input:focus {
-      background: #dbdbdb;
-    }
-
-    .form button {
-      font-family: 'Comfortaa', cursive;
-      text-transform: uppercase;
-      outline: 0;
-      background: #4b6cb7;
-      width: 100%;
-      border: 0;
-      border-radius: 5px;
-      padding: 15px;
-      color: #FFFFFF;
-      font-size: 14px;
-      -webkit-transition: all 0.3 ease;
-      transition: all 0.3 ease;
-      cursor: pointer;
-    }
-
-    .form button:active {
-      background: #395591;
-    }
-
-    .form span {
-      font-size: 50px;
-      color: #4b6cb7;
-    }
-    .bar-blue{
-        display: flex;
-        flex-direction: row;
-    }
-
-    .tabs-style{
-        background-color: rgb(81, 81, 235) !important;
-    }
-  </style>
 </html>

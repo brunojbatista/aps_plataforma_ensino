@@ -28,7 +28,7 @@ class CadastroCartao {
     } 
 
     async listarCartoes(usuario_id) {
-        return await this.RepositorioCartao.inserirCartao(
+        return await this.RepositorioCartao.listarCartoes(
             usuario_id
         )
     }

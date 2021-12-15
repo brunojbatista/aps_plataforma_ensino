@@ -10,6 +10,7 @@ const CadastroUsuario   = require('../Collections/CadastroUsuario');
 const CadastroCurso     = require('../Collections/CadastroCurso');
 const CadastroTransacao = require('../Collections/CadastroTransacao');
 const CadastroCartao    = require('../Collections/CadastroCartao');
+const CadastroSessao    = require('../Collections/CadastroSessao');
 const GlobalUtils       = require('../../Utils/Global');
 const OperadoraFinanceiraFachada = require("../../Models/OperadoraFinanceira/OperadoraFinanceiraFachada");
 // const { response } = require('../../../app');
@@ -35,6 +36,9 @@ class ControladorMatricula {
         this.CadastroCartao = new CadastroCartao(
             fabricaRepositorio.criarRepositorioCartao()
         );
+        this.CadastroSessao = new CadastroSessao(
+            fabricaRepositorio.criarRepositorioSessao()
+        );
         this.OperadoraFinanceiraFachada = new OperadoraFinanceiraFachada();
     }
 
@@ -50,12 +54,21 @@ class ControladorMatricula {
                 try {
                     
                     const cookies = GlobalUtils.parseCookie(req);
+                    
+                    if (!await this.CadastroSessao.hasLogged(cookies)) reject("Usuário não logado!");
 
-                    // console.log("cookies", cookies);
+                    const session = await this.CadastroSessao.getSession(cookies.logged);
 
-                    if (!cookies.hasOwnProperty('logged')) reject("Usuário não logado!");
+                    const session_hash = session.session_hash;
 
-                    const session_hash = cookies.logged;
+
+                    // const cookies = GlobalUtils.parseCookie(req);
+
+                    // // console.log("cookies", cookies);
+
+                    // if (!cookies.hasOwnProperty('logged')) reject("Usuário não logado!");
+
+                    // const session_hash = cookies.logged;
 
                     // console.log("session_hash", session_hash);
 

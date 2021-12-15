@@ -4,6 +4,7 @@ const RepositorioCursoBDR           = require('./BDR/RepositorioCursoBDR');
 const RepositorioCartaoBDR          = require('./BDR/RepositorioCartaoBDR');
 const RepositorioMatriculaBDR       = require('./BDR/RepositorioMatriculaBDR');
 const RepositorioTransacaoBDR       = require('./BDR/RepositorioTransacaoBDR');
+const RepositorioSessaoBDR          = require('./BDR/RepositorioSessaoBDR');
 // const CursoBDR          = require('./CursoBDR');
 // const CartaoBDR         = require('./CartaoBDR');
 // const MatriculaBDR      = require('./MatriculaBDR');
@@ -31,6 +32,10 @@ class FabricaRepositorioBDR extends FabricaRepositorioAbstrata {
 
     criarRepositorioTransacao() {
         return new RepositorioTransacaoBDR();
+    }
+
+    criarRepositorioSessao() {
+        return new RepositorioSessaoBDR();
     }
 
 }

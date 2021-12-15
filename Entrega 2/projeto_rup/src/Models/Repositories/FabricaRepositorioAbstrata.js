@@ -9,6 +9,7 @@ class FabricaRepositorioAbstrata {
     criarRepositorioCurso() {}
     criarRepositorioMatricula() {}
     criarRepositorioTransacao() {}
+    criarRepositorioSessao() {}
 
 }
 

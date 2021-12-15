@@ -94,6 +94,28 @@ class ControladorUsuario {
 
     }
 
+    isLogged(hash) {
+
+        return new Promise(
+            async (resolve, reject) => {
+
+                try {
+
+                    var usuario = await this.CadastroUsuario.getBySession(hash);
+
+                    if (!usuario?.id) return reject("Usuário inválido");
+
+                    resolve(usuario);
+
+                } catch (e) {
+                    reject(e);
+                }
+
+            }
+        );
+
+    }
+
 }
 
 module.exports = ControladorUsuario;

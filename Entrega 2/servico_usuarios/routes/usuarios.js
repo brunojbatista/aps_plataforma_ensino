@@ -14,4 +14,6 @@ router.post('/cadastro', UsersController.cadastrarUsuario);
 
 router.post('/autenticar', UsersController.autenticar);
 
+router.get('/isLogged/:hash', UsersController.isLogged);
+
 module.exports = router;

@@ -79,3 +79,20 @@ exports.autenticar = (req, res, next) => {
     );
     
 };
+
+exports.isLogged = async (req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    try {
+        const usuario = await Fachada.isLogged(req.params.hash);
+        res.setHeader('Access-Control-Allow-Origin', '*').status(200).json({
+            'code': 200,
+            'body': usuario
+        });
+    } catch (e) {
+        res.setHeader('Access-Control-Allow-Origin', '*').status(400).json({
+            'code': 400,
+            'msg': e
+        });
+    }
+
+};

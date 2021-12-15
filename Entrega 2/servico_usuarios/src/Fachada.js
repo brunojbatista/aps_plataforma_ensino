@@ -45,6 +45,15 @@ class Fachada {
             req
         );
     }
+
+    static async isLogged(hash) {
+
+        var controladorUsuario = new ControladorUsuario(
+            new FabricaRepositorioBDR()
+        );
+
+        return await controladorUsuario.isLogged(hash);
+    }
 }
 
 module.exports = Fachada;

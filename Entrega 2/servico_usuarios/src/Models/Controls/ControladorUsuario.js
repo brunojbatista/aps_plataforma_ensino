@@ -103,7 +103,7 @@ class ControladorUsuario {
 
                     var usuario = await this.CadastroUsuario.getBySession(hash);
 
-                    if (!usuario?.id) return reject("Usuário inválido");
+                    if (!usuario?.id) return reject("Usuário não logado!");
 
                     resolve(usuario);
 

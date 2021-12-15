@@ -1,0 +1,3 @@
+GET http://localhost:3001/usuarios
+Accept: application/json
+###

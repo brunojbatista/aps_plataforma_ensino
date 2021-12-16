@@ -1,0 +1,8 @@
+POST http://localhost:3001/usuarios/autenticar
+Content-Type: application/json
+
+{
+  "login": "vmm",
+  "senha": "123"
+}
+###

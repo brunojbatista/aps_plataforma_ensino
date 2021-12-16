@@ -18,6 +18,9 @@
           <input id="senha" type="password" placeholder="senha" required />
           <p></p>
           <button onclick="login()">Entrar</button>
+          <a href="/cadastroUsuario">
+              <button  style="margin-top: 2px">Cadastro</button>
+          </a>
       </div>
       <script>
         function login(){
@@ -29,12 +32,14 @@
           formData.append("login", login);
           formData.append("senha", senha);
 
-          axios.post("usuarios/autenticar", formData).then(res => {
-            if(res.status == 200){
+          axios.post("http://localhost:3001/usuarios/autenticar", formData).then(res => {
+              console.log(res.headers)
+              if(res.status === 200){
               window.location = "/TelaInicial";
             } 
           }).catch((error) => {
-            alert("Dados Incorretos");
+              console.error(error)
+              alert("Dados Incorretos");
           })
         }
       </script>

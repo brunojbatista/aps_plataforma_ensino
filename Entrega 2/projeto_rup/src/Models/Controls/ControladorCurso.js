@@ -2,6 +2,7 @@ const CadastroCurso   = require('../Collections/CadastroCurso');
 const CadastroUsuario = require('../Collections/CadastroUsuario');
 const CadastroSessao    = require('../Collections/CadastroSessao');
 const GlobalUtils     = require('../../Utils/Global');
+const axios = require("axios");
 
 
 class ControladorCurso {
@@ -33,29 +34,20 @@ class ControladorCurso {
                     const cookies = GlobalUtils.parseCookie(req);
                     
                     if (!await this.CadastroSessao.hasLogged(cookies)) reject("Usuário não logado!");
+                    console.log(cookies.logged)
+                    axios.get(`http://localhost:3001/usuarios/isLogged/${cookies.logged}`).then(async response => {
+                        let usuario_id = response?.data?.body?.id;
+                        var curso = await this.CadastroCurso.inserirCurso(
+                            nome,
+                            descricao,
+                            valor,
+                            usuario_id
+                        );
 
-                    const session = await this.CadastroSessao.getSession(cookies.logged);
-
-                    // // console.log("cookies", cookies);
-
-                    // // if (!cookies.hasOwnProperty('logged')) reject("Usuário não logado!");
-
-                    // const session_hash = cookies.logged;
-
-                    // // console.log("session_hash", session_hash);
-
-                    // const usuario = await this.CadastroUsuario.getBySession(session.session_hash);
-
-                    // console.log("usuario", usuario);
-
-                    var curso = await this.CadastroCurso.inserirCurso(
-                        nome,
-                        descricao,
-                        valor,
-                        session.usuario_id
-                    );
-                    
-                    resolve(curso);
+                        resolve(curso);
+                    }).catch(error => {
+                        reject('O usuário não está logado')
+                    })
 
                 } catch (e) { reject(e); }
 

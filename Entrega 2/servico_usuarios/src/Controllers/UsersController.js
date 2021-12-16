@@ -60,7 +60,7 @@ exports.autenticar = (req, res, next) => {
                     params
                 );
 
-                res.setHeader('Access-Control-Allow-Origin', '*').status(200).json({
+                res.status(200).json({
                     'code': 200,
                     'msg': 'Usuário autenticado com sucesso!',
                     'body': {
@@ -69,7 +69,7 @@ exports.autenticar = (req, res, next) => {
                     }
                 });
             } catch (e) {
-                res.setHeader('Access-Control-Allow-Origin', '*').status(400).json({
+                res.status(400).json({
                     'code': 400,
                     'msg': e
                 });
